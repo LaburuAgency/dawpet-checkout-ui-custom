@@ -7,3 +7,73 @@
 
 /* Displays the option to enter an international phone */
 .phone-box { display: block; }
+
+/* Center and style the empty-cart hero */
+.empty-cart-content {
+  max-width: 920px;
+  margin: 40px auto;
+  padding: 48px 32px;
+  background: linear-gradient(135deg, rgba(239,246,255,0.92), rgba(236,253,245,0.92));
+  border: 1px solid #e6eaf0;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(16, 24, 40, 0.06);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Soft decorative blobs */
+.empty-cart-content::before {
+  content: "";
+  position: absolute;
+  inset: -40% -40% auto auto;
+  background:
+    radial-gradient(closest-side, rgba(59,130,246,0.12), transparent) -20% -20% / 60% 60% no-repeat,
+    radial-gradient(closest-side, rgba(16,185,129,0.12), transparent) 120% 120% / 60% 60% no-repeat;
+  pointer-events: none;
+}
+
+/* Title */
+.empty-cart-title {
+  font-size: 28px;
+  line-height: 1.2;
+  font-weight: 700;
+  color: #0f172a; /* slate-900 */
+  margin: 0 0 8px;
+}
+
+/* Subtitle/message */
+.empty-cart-message { 
+  color: #475569; /* slate-600 */
+  font-size: 16px;
+  margin-bottom: 24px;
+}
+
+/* Call to action button */
+.link-choose-products.btn {
+  padding: 12px 20px;
+  font-weight: 600;
+  border-radius: 999px;
+  border: none;
+}
+
+.link-choose-products.btn.btn-success {
+  background: #16a34a; /* green-600 */
+}
+
+.link-choose-products.btn.btn-success:hover,
+.link-choose-products.btn.btn-success:focus {
+  background: #15803d; /* green-700 */
+}
+
+/* Accessibility: focus ring */
+.link-choose-products.btn:focus { 
+  outline: 2px solid #22c55e; 
+  outline-offset: 2px; 
+}
+
+/* Responsive tweaks */
+@media (max-width: 768px) {
+  .empty-cart-content { padding: 32px 20px; margin: 24px auto; }
+  .empty-cart-title { font-size: 22px; }
+}
