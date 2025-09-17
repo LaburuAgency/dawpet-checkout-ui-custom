@@ -15,7 +15,7 @@ This is a VTEX IO Checkout UI Settings app for the HomeSentry store. It's a spec
 
 ## Development Commands
 
-This project uses VTEX CLI and Yarn for development and deployment:
+This project uses VTEX CLI for development and deployment. The lint script references Yarn commands but this project doesn't use a package.json in the root:
 
 ```bash
 # Development workflow:
@@ -24,10 +24,9 @@ vtex publish           # Publish new app version
 vtex install           # Install app in current workspace
 
 # Pre-publish checks (from manifest.json):
-bash lint.sh           # Runs yarn, yarn format, and yarn lint
-yarn                   # Install dependencies
-yarn format            # Format code
-yarn lint              # Lint code
+bash lint.sh           # Runs yarn, yarn format, and yarn lint (lint script may need updating)
+
+# Note: Currently no package.json exists, so yarn commands in lint.sh may not work
 
 # Workspace management:
 vtex whoami            # Check current workspace and account
@@ -62,10 +61,12 @@ vtex workspace promote # Promote workspace to master after testing
 - `checkout-confirmation-*` - Post-purchase confirmation page
 - `checkout-instore-*` - Physical store checkout (VTEX inStore)
 
-**CSS Customizations**: Common patterns in existing customizations:
+**CSS Customizations**: Current active customizations include:
 - `.document-box { display: block; }` - Enable foreign document input
 - `.phone-box { display: block; }` - Enable international phone input
-- Checkout6 inherits styles from checkout5 with version-specific overrides
+- `body { background-color: #f3f3f3; }` - Light gray background
+- `.empty-cart-content` - Enhanced empty cart styling with gradient background
+- Checkout6 inherits base styles from checkout5 with additional customizations
 
 **JavaScript Customizations**: Currently minimal, but supports:
 - Custom checkout behavior modifications
@@ -115,4 +116,10 @@ vtex workspace promote # Promote workspace to master after testing
 
 **Document and Phone Fields**: The primary customization enables display of foreign document and international phone input fields in the checkout form, supporting international customers.
 
+**Enhanced Empty Cart Styling**: Recent additions include gradient background styling for empty cart pages with improved visual design.
+
 **Version Inheritance**: Checkout6 inherits base styles from checkout5 with additional version-specific customizations applied on top.
+
+## Current Development Status
+
+There are uncommitted changes to `checkout6-custom.css` that include enhanced empty cart styling with gradient backgrounds and improved layout.
