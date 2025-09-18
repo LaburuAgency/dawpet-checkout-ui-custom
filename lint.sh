@@ -1,5 +1,6 @@
 #!/bin/bash
 
-yarn
-yarn format
-yarn lint
+npm install
+npm run build
+npm run format
+npm run lint
