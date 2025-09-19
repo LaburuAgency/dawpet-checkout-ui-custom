@@ -1,10 +1,10 @@
-import { h, render } from 'preact';
-import CheckoutHeader from './components/CheckoutHeader.jsx';
-import { initializeCheckout, setupEventListeners } from './modules/eventHandlers.js';
-import './styles.scss';
+import { h, render } from 'preact'
+import CheckoutHeader from './components/CheckoutHeader.jsx'
+import { initializeCheckout, setupEventListeners } from './modules/eventHandlers.js'
+import './styles.scss'
 
 document.addEventListener('DOMContentLoaded', () => {
-  console.log('🚀 HomeSentry Checkout6 - Initialized');
+  console.log('🚀 HomeSentry Checkout6 - Initialized')
 
   // // Render custom header component (with safe fallback)
   // let headerContainer = document.querySelector('#header-container')
@@ -21,8 +21,8 @@ document.addEventListener('DOMContentLoaded', () => {
   // render(<CheckoutHeader />, headerContainer)
 
   // Initialize checkout functionality
-  initializeCheckout();
+  initializeCheckout()
 
   // Setup event listeners for dynamic behavior
-  setupEventListeners();
-});
+  setupEventListeners()
+})

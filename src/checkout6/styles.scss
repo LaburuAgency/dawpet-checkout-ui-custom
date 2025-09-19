@@ -11,7 +11,7 @@
 
 // Variables
 $primary-background: #ffffff;
-$empty-cart-gradient: linear-gradient(135deg, rgba(239,246,255,0.92), rgba(236,253,245,0.92));
+$empty-cart-gradient: linear-gradient(135deg, rgba(239, 246, 255, 0.92), rgba(236, 253, 245, 0.92));
 $border-color: #e6eaf0;
 $border-radius: 16px;
 $text-dark: #0f172a;
@@ -26,22 +26,22 @@ body {
 }
 
 // Document and phone display options for international checkout
-.document-box { 
-  display: block; 
+.document-box {
+  display: block;
 }
 
-.phone-box { 
-  display: block; 
+.phone-box {
+  display: block;
 }
 
 .container {
-    max-width: 1200px;
+  max-width: 1200px;
 }
 
-@media(max-width: 690px) {
-    .summary-template-holder .cart-links-bottom {
-        position: relative;
-    }
+@media (max-width: 690px) {
+  .summary-template-holder .cart-links-bottom {
+    position: relative;
+  }
 }
 
 .table.cart-items td.product-image a {
@@ -65,7 +65,7 @@ body {
   padding: 2rem;
   margin-right: 0;
 }
-span[data-bind="visible: !isCouponTyped()"] {
+span[data-bind='visible: !isCouponTyped()'] {
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -110,7 +110,7 @@ span[data-bind="visible: !isCouponTyped()"] {
   gap: 0.4rem;
 }
 
-.summary-template-holder .summary-coupon fieldset.coupon-fieldset input[type=text] {
+.summary-template-holder .summary-coupon fieldset.coupon-fieldset input[type='text'] {
   margin-right: 0;
 }
 
@@ -132,12 +132,12 @@ span[data-bind="visible: !isCouponTyped()"] {
   overflow: hidden;
 
   &::before {
-    content: "";
+    content: '';
     position: absolute;
     inset: -40% -40% auto auto;
     background:
-      radial-gradient(closest-side, rgba(59,130,246,0.12), transparent) -20% -20% / 60% 60% no-repeat,
-      radial-gradient(closest-side, rgba(16,185,129,0.12), transparent) 120% 120% / 60% 60% no-repeat;
+      radial-gradient(closest-side, rgba(59, 130, 246, 0.12), transparent) -20% -20% / 60% 60% no-repeat,
+      radial-gradient(closest-side, rgba(16, 185, 129, 0.12), transparent) 120% 120% / 60% 60% no-repeat;
     pointer-events: none;
   }
 }
@@ -150,7 +150,7 @@ span[data-bind="visible: !isCouponTyped()"] {
   margin: 0 0 8px;
 }
 
-.empty-cart-message { 
+.empty-cart-message {
   color: $text-medium;
   font-size: 16px;
   margin-bottom: 24px;
@@ -171,9 +171,9 @@ span[data-bind="visible: !isCouponTyped()"] {
     }
   }
 
-  &:focus { 
-    outline: 2px solid $green-500; 
-    outline-offset: 2px; 
+  &:focus {
+    outline: 2px solid $green-500;
+    outline-offset: 2px;
   }
 }
 
@@ -201,7 +201,7 @@ span[data-bind="visible: !isCouponTyped()"] {
 // Cart checkboxes styling
 .cart-checkboxes-container {
   margin-bottom: 40px;
-  
+
   .checkbox-item {
     margin-bottom: 12px;
     display: flex;
@@ -212,7 +212,7 @@ span[data-bind="visible: !isCouponTyped()"] {
       margin-bottom: 0;
     }
 
-    input[type="checkbox"] {
+    input[type='checkbox'] {
       width: 18px;
       height: 18px;
       accent-color: $text-dark;
@@ -282,7 +282,9 @@ span[data-bind="visible: !isCouponTyped()"] {
     }
   }
 
-  &.step2, &.step3, &.step4 {
+  &.step2,
+  &.step3,
+  &.step4 {
     .checkout-step {
       &:not(.active):not(.done) {
         opacity: 0.6;
@@ -330,13 +332,16 @@ input[placeholder] {
     .form-group {
       position: relative;
 
-      input, select {
+      input,
+      select {
         width: 100%;
         padding: 12px 16px;
         border: 1px solid $border-color;
         border-radius: 8px;
         font-size: 14px;
-        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        transition:
+          border-color 0.3s ease,
+          box-shadow 0.3s ease;
 
         &:focus {
           outline: none;
@@ -395,4 +400,3 @@ input[placeholder] {
     }
   }
 }
-

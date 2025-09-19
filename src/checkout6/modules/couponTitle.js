@@ -1,41 +1,41 @@
-import { h, render } from 'preact';
-import CouponTitle from '../components/CouponTitle.jsx';
+import { h, render } from 'preact'
+import CouponTitle from '../components/CouponTitle.jsx'
 
-let couponTitleContainer = null;
+let couponTitleContainer = null
 
 const insertCouponTitle = () => {
   // Solo ejecutar en el paso del carrito
   if (!window.location.hash.includes('cart')) {
-    removeCouponTitle();
-    return;
+    removeCouponTitle()
+    return
   }
 
   // Si ya existe el contenedor, no hacer nada
   if (couponTitleContainer && document.contains(couponTitleContainer)) {
-    return;
+    return
   }
 
-  const summaryTemplate = document.querySelector('.summary-template-holder');
+  const summaryTemplate = document.querySelector('.summary-template-holder')
   if (!summaryTemplate) {
-    return;
+    return
   }
 
   // Crear el contenedor para el título del cupón
-  couponTitleContainer = document.createElement('div');
-  couponTitleContainer.id = 'coupon-title-container';
+  couponTitleContainer = document.createElement('div')
+  couponTitleContainer.id = 'coupon-title-container'
 
   // Insertar al inicio del summary-template-holder (afterbegin)
-  summaryTemplate.insertAdjacentElement('afterbegin', couponTitleContainer);
+  summaryTemplate.insertAdjacentElement('afterbegin', couponTitleContainer)
 
   // Renderizar el componente
-  render(h(CouponTitle), couponTitleContainer);
-};
+  render(h(CouponTitle), couponTitleContainer)
+}
 
 const removeCouponTitle = () => {
   if (couponTitleContainer && document.contains(couponTitleContainer)) {
-    couponTitleContainer.remove();
-    couponTitleContainer = null;
+    couponTitleContainer.remove()
+    couponTitleContainer = null
   }
-};
+}
 
-export { insertCouponTitle, removeCouponTitle };
+export { insertCouponTitle, removeCouponTitle }

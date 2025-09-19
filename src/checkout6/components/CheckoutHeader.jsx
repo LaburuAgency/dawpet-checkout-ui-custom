@@ -1,7 +1,7 @@
-import { h } from 'preact';
+import { h } from 'preact'
 
 const CheckoutHeader = () => {
-  console.log('📦 CheckoutHeader component rendering...');
+  console.log('📦 CheckoutHeader component rendering...')
 
   return (
     <div className="container-custom-header">
@@ -12,7 +12,7 @@ const CheckoutHeader = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default CheckoutHeader;
+export default CheckoutHeader
