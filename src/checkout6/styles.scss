@@ -1,0 +1,398 @@
+/* Checkout6 SASS styles for VTEX IO */
+
+// Use recommended products styles
+@use './styles/recommended-products' as *;
+
+// Use cart title styles
+@use './styles/cart-title' as *;
+
+// Use coupon title styles
+@use './styles/coupon-title' as *;
+
+// Variables
+$primary-background: #ffffff;
+$empty-cart-gradient: linear-gradient(135deg, rgba(239,246,255,0.92), rgba(236,253,245,0.92));
+$border-color: #e6eaf0;
+$border-radius: 16px;
+$text-dark: #0f172a;
+$text-medium: #475569;
+$green-600: #16a34a;
+$green-700: #15803d;
+$green-500: #22c55e;
+
+// Base styles
+body {
+  background-color: $primary-background;
+}
+
+// Document and phone display options for international checkout
+.document-box { 
+  display: block; 
+}
+
+.phone-box { 
+  display: block; 
+}
+
+.container {
+    max-width: 1200px;
+}
+
+@media(max-width: 690px) {
+    .summary-template-holder .cart-links-bottom {
+        position: relative;
+    }
+}
+
+.table.cart-items td.product-image a {
+  border-radius: 12px;
+}
+
+.table.cart-items td.quantity {
+  border-radius: 31px;
+  padding: 6px 12px;
+}
+
+.table.cart-items td.quantity .item-quantity-change i:before {
+  border: 1px solid #b4b4b4;
+  color: #5b5b5b;
+  line-height: 21px;
+}
+
+.summary-template-holder {
+  border: 1px solid hsl(0deg 0% 0% / 15%);
+  border-radius: 12px;
+  padding: 2rem;
+  margin-right: 0;
+}
+span[data-bind="visible: !isCouponTyped()"] {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: Arial, sans-serif;
+}
+
+.coupon-value {
+  flex: 1;
+  padding: 0.6rem 0.8rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  transition: border-color 0.3s;
+}
+
+.coupon-value:focus {
+  border-color: #000;
+  outline: none;
+}
+
+#cart-coupon-add.btn {
+  background: #000;
+  color: #fff;
+  border: none;
+  padding: 0 1.2rem;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+#cart-coupon-add.btn:hover {
+  background: #001d39;
+}
+
+.loading-coupon {
+  margin-left: 0.5rem;
+  font-size: 0.85rem;
+  color: #666;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.summary-template-holder .summary-coupon fieldset.coupon-fieldset input[type=text] {
+  margin-right: 0;
+}
+
+.orderform-template .cart-template.mini-cart .summary-totalizers tfoot tr td {
+  font-size: 18px;
+}
+
+// Empty cart styling
+.empty-cart-content {
+  max-width: 920px;
+  margin: 40px auto;
+  padding: 48px 32px;
+  background: $empty-cart-gradient;
+  border: 1px solid $border-color;
+  border-radius: $border-radius;
+  box-shadow: 0 10px 30px rgba(16, 24, 40, 0.06);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: -40% -40% auto auto;
+    background:
+      radial-gradient(closest-side, rgba(59,130,246,0.12), transparent) -20% -20% / 60% 60% no-repeat,
+      radial-gradient(closest-side, rgba(16,185,129,0.12), transparent) 120% 120% / 60% 60% no-repeat;
+    pointer-events: none;
+  }
+}
+
+.empty-cart-title {
+  font-size: 28px;
+  line-height: 1.2;
+  font-weight: 700;
+  color: $text-dark;
+  margin: 0 0 8px;
+}
+
+.empty-cart-message { 
+  color: $text-medium;
+  font-size: 16px;
+  margin-bottom: 24px;
+}
+
+.link-choose-products.btn {
+  padding: 12px 20px;
+  font-weight: 600;
+  border-radius: 999px;
+  border: none;
+
+  &.btn-success {
+    background: $green-600;
+
+    &:hover,
+    &:focus {
+      background: $green-700;
+    }
+  }
+
+  &:focus { 
+    outline: 2px solid $green-500; 
+    outline-offset: 2px; 
+  }
+}
+
+// Custom header
+.container-custom-header {
+  width: 100%;
+  margin-bottom: 3rem;
+
+  &__content {
+    max-width: 1366px;
+    margin: 0 auto;
+    padding-top: 20px;
+  }
+}
+
+// VTEX IO Checkout6 specific enhancements
+.checkout6-specific {
+  .enhanced-form-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+}
+
+// Cart checkboxes styling
+.cart-checkboxes-container {
+  margin-bottom: 40px;
+  
+  .checkbox-item {
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      accent-color: $text-dark;
+      cursor: pointer;
+    }
+
+    label {
+      font-size: 14px;
+      color: $text-dark;
+      cursor: pointer;
+      line-height: 1.4;
+      user-select: none;
+
+      &:hover {
+        color: $text-dark;
+      }
+
+      a {
+        color: $text-dark;
+        font-weight: bold;
+        text-decoration: underline;
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+// Disabled cart link styling
+.disabled-link {
+  opacity: 0.5 !important;
+  pointer-events: none !important;
+  cursor: not-allowed !important;
+}
+
+// Checkout steps styling
+.checkout-steps-custom {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+  padding: 0 20px;
+
+  .checkout-step {
+    flex: 1;
+    max-width: 200px;
+    text-align: center;
+    padding: 12px 16px;
+    border-radius: 8px;
+    margin: 0 4px;
+    background: rgba(255, 255, 255, 0.6);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    color: $text-medium;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+
+    &.active {
+      background: $green-600;
+      color: white;
+      font-weight: 600;
+      box-shadow: 0 4px 12px rgba(22, 163, 74, 0.3);
+    }
+
+    &.done {
+      background: rgba(22, 163, 74, 0.1);
+      color: $green-700;
+      border-color: $green-600;
+    }
+  }
+
+  &.step2, &.step3, &.step4 {
+    .checkout-step {
+      &:not(.active):not(.done) {
+        opacity: 0.6;
+      }
+    }
+  }
+}
+
+// Shipping info styling
+.myship {
+  margin: 16px 0;
+  padding: 12px 16px;
+  background: rgba(22, 163, 74, 0.1);
+  border: 1px solid rgba(22, 163, 74, 0.2);
+  border-radius: 8px;
+
+  .warning-envio {
+    margin: 0;
+    color: $green-700;
+    font-size: 14px;
+    font-weight: 500;
+
+    span {
+      font-weight: 600;
+    }
+  }
+}
+
+// Form enhancements
+input[placeholder] {
+  &::placeholder {
+    color: $text-medium;
+    opacity: 0.7;
+    font-style: italic;
+  }
+}
+
+// Enhanced form controls for checkout6
+.checkout6-specific {
+  .enhanced-form-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    .form-group {
+      position: relative;
+
+      input, select {
+        width: 100%;
+        padding: 12px 16px;
+        border: 1px solid $border-color;
+        border-radius: 8px;
+        font-size: 14px;
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+
+        &:focus {
+          outline: none;
+          border-color: $green-600;
+          box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.1);
+        }
+      }
+    }
+  }
+}
+
+// Responsive design
+@media (max-width: 768px) {
+  .empty-cart-content {
+    padding: 32px 20px;
+    margin: 24px auto;
+  }
+
+  .empty-cart-title {
+    font-size: 22px;
+  }
+
+  .cart-checkboxes-container {
+    margin-bottom: 30px;
+    padding: 16px;
+
+    .checkbox-item {
+      margin-bottom: 10px;
+
+      label {
+        font-size: 13px;
+      }
+    }
+  }
+
+  .checkout-steps-custom {
+    flex-direction: column;
+    gap: 8px;
+
+    .checkout-step {
+      max-width: 100%;
+      margin: 0;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .cart-checkboxes-container {
+    padding: 12px;
+
+    .checkbox-item {
+      label {
+        font-size: 12px;
+        line-height: 1.3;
+      }
+    }
+  }
+}
+
