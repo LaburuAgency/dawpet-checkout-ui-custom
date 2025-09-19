@@ -8,6 +8,9 @@
     "docs": "0.x",
     "checkout-ui-custom": "0.x"
   },
+  "peerDependencies": {
+    "vtex.checkout-ui-custom": "0.x"
+  },
   "scripts": {
     "prereleasy": "bash lint.sh"
   },
