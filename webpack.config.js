@@ -23,7 +23,7 @@ module.exports = (env, argv) => {
             options: {
               presets: [
                 '@babel/preset-env',
-                ['@babel/preset-react', { pragma: 'h', pragmaFrag: 'Fragment' }]
+                ['@babel/preset-react', { runtime: 'automatic', importSource: 'preact' }]
               ]
             }
           }
@@ -54,10 +54,6 @@ module.exports = (env, argv) => {
         'react': 'preact/compat',
         'react-dom': 'preact/compat'
       }
-    },
-    externals: {
-      'preact': 'preact',
-      'preact/hooks': 'preact/hooks'
     },
     mode: isProduction ? 'production' : 'development',
     devtool: isProduction ? false : 'source-map'

@@ -2,13 +2,14 @@ import { $ } from '../utils/dom.js';
 
 // Form placeholder management
 export const changePlaceholder = () => {
-  const checkInterval = setInterval(() => {
-    const couponField = $.select('#cart-coupon');
-    if (couponField) {
+  // Use waitForElement utility instead of setInterval
+  $.waitForElement('#cart-coupon', 5000)
+    .then(couponField => {
       couponField.setAttribute('placeholder', 'Introduce el cupón');
-      clearInterval(checkInterval);
-    }
-  }, 200);
+    })
+    .catch(() => {
+      // Element not found within timeout - silent fail
+    });
 };
 
 export const addPlaceholder = () => {

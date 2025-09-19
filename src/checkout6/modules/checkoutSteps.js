@@ -58,23 +58,17 @@ export const checkoutStepsReader = () => {
   });
 
   // Set appropriate step state based on hash
-  console.log('🔄 Setting step state based on hash...');
-
   if (hash.includes('cart')) {
-    console.log('🛒 Setting cart step as active');
     steps.forEach(step => {
       if (step.classList.contains(STEP_CLASSES.cart)) {
         step.classList.add('active');
       }
     });
   } else if (hash.includes('email') || hash.includes('profile')) {
-    console.log('📧 Setting info step (email/profile) as active');
     setStepState(wrapper, steps, 'step2', [STEP_CLASSES.cart], STEP_CLASSES.info);
   } else if (hash.includes('shipping')) {
-    console.log('🚚 Setting shipping step as active');
     setStepState(wrapper, steps, 'step3', [STEP_CLASSES.cart, STEP_CLASSES.info], STEP_CLASSES.shipping);
   } else if (hash.includes('payment')) {
-    console.log('💳 Setting payment step as active');
     setStepState(
       wrapper,
       steps,
@@ -82,9 +76,5 @@ export const checkoutStepsReader = () => {
       [STEP_CLASSES.cart, STEP_CLASSES.info, STEP_CLASSES.shipping],
       STEP_CLASSES.payment
     );
-  } else {
-    console.log('❓ Hash does not match any known step');
   }
-
-  console.log('✅ checkoutStepsReader() completed');
 };

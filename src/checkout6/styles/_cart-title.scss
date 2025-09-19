@@ -1,0 +1,41 @@
+/* Cart Title Styles */
+
+.cart-title {
+  margin-bottom: 24px;
+  padding: 0 0 16px 0;
+  position: relative;
+
+  &__heading {
+    font-size: 32px;
+    font-weight: 700;
+    text-align: center;
+    color: #0f172a;
+    margin: 0;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    position: relative;
+  }
+}
+
+// Responsive design
+@media (max-width: 768px) {
+  .cart-title {
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+
+    &__heading {
+      font-size: 28px;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .cart-title {
+    margin-bottom: 16px;
+    padding-bottom: 10px;
+
+    &__heading {
+      font-size: 24px;
+    }
+  }
+}

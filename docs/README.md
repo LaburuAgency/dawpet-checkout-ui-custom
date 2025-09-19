@@ -1,28 +1,138 @@
-# Checkout UI Settings
+# HomeSentry Checkout UI Custom - Modern Development Stack
 
-The Checkout UI Settings app is responsible for **customizing your store's Checkout UI through scripts**.
+The HomeSentry Checkout UI Settings app provides **advanced checkout customization using modern development tools** including Webpack, Preact, and SASS. This approach combines the benefits of VTEX IO's version-controlled deployments with contemporary JavaScript and CSS development practices.
 
-The main advantage of using the app instead of the [store's admin](https://help.vtex.com/tutorial/configure-template-in-smartcheckout-update--ToTE5XB39t0SwtHgpgwSv?locale=en) for this customization is that your Checkout scripts will behave as configurations for platform apps.
+The main advantages of this modern approach over traditional [admin interface customization](https://help.vtex.com/tutorial/configure-template-in-smartcheckout-update--ToTE5XB39t0SwtHgpgwSv?locale=en) include:
 
-In practice, it means that Checkout UI Settings allows A/B testing in your store's scripts, in addition to the possibility of quick rollbacks for old scripts (i.e. scripts pertaining to older Checkout UI Settings app's versions).
+- **Component-based architecture** with Preact for maintainable UI elements
+- **Modern SASS** with modular stylesheets and design system variables
+- **Automated build process** with Webpack for optimized production bundles
+- **A/B testing capabilities** through VTEX IO's version management
+- **Safe rollbacks** to previous app versions
+- **Development tooling** with hot reloading, linting, and formatting
 
-## Configuration
+## Development Setup
 
-1.  Using your terminal and the [VTEX IO Toolbelt](https://vtex.io/docs/recipes/development/vtex-io-cli-installment-and-command-reference), log into the desired account;
-2.  Run `vtex list` to access the list of apps that are already installed on the account you're working on. If the Checkout UI Settings option already exists, you can skip to step 7 of this step-by-step;
-3.  If the Checkout UI Settings app was not found in the list of installed apps, run the `vtex init` command;
-4. Select the `checkout-ui-settings` option;
-5.  Open the `checkout-ui-settings`  app in whichever code editor you prefer;
-6.  In the  `manifest.json`  file, change the predefined default value  `vendor`  to the name of the account in which you want to install the app;
-7.  In the  `checkout-ui-custom`  folder, create the files in which the scripts will be included, just as you would do in the [admin's interface](https://help.vtex.com/tutorial/configure-template-in-smartcheckout-update--ToTE5XB39t0SwtHgpgwSv?locale=en#configure-code). Notice that a few defaults files already exist in the `checkout-ui-custom` folder, files which you can use to insert the scripts;
-8.  According to the Checkout customization you are looking for, open the most suitable file and insert the desired scripts;
-9.  Save your changes. Then, [publish](https://vtex.io/docs/recipes/development/publishing-an-app) the app's new version;
-10. Still logged into the desired account, [create a production workspace](https://vtex.io/docs/recipes/development/creating-a-production-workspace) and [install the app](https://vtex.io/docs/recipes/development/installing-an-app);
-10. If everything is working as expected, [promote the workspace to master](https://vtex.io/docs/recipes/development/promoting-a-workspace-to-master).
+### Prerequisites
+- [VTEX IO CLI](https://vtex.io/docs/recipes/development/vtex-io-cli-installment-and-command-reference) installed
+- Node.js and npm for development dependencies
+- Access to HomeSentry VTEX account
 
-## Modus Operandi 
+### Initial Setup
 
-Once the app is deployed and installed in the account, every scripts contained in it will be automatically linked to your store and used to [build the templates](https://help.vtex.com/tutorial/configure-template-in-smartcheckout-update--ToTE5XB39t0SwtHgpgwSv?locale=en#configuring-templates-from-the-code-menu) to customize your Checkout.
+1. **Clone and Install Dependencies**
+   ```bash
+   git clone [repository-url]
+   cd homesentry-checkout-ui-custom
+   npm install
+   ```
 
+2. **VTEX Account Configuration**
+   ```bash
+   vtex login homesentry
+   vtex whoami  # Verify you're logged into correct account
+   ```
 
-:warning: **Scripts used by Checkout are linked to the Checkout UI Settings version that's installed in your store**. If a prior app version was already installed and your want to change the scripts linked to it, you'll need to repeat the already existing code and thereafter launch the app's new version containing the changes you just did. Housekeeper is responsible for updating app versions in the accounts it's installed in.
+3. **Development Workspace**
+   ```bash
+   vtex workspace create dev-checkout-[your-name]
+   vtex workspace use dev-checkout-[your-name]
+   ```
+
+### Development Workflow
+
+1. **Start Development Mode**
+   ```bash
+   npm run watch  # Automatically rebuilds on file changes
+   vtex link      # Link app to development workspace
+   ```
+
+2. **Make Changes**
+   - Edit source files in `src/checkout6/`
+   - Components: `src/checkout6/components/`
+   - Modules: `src/checkout6/modules/`
+   - Styles: `src/checkout6/styles/`
+
+3. **Test Changes**
+   - Access your store's checkout in the development workspace
+   - Verify functionality across different checkout steps
+   - Test on mobile and desktop viewports
+
+4. **Build for Production**
+   ```bash
+   npm run build    # Create optimized production build
+   npm run lint     # Verify code quality
+   ```
+
+5. **Deploy to Production**
+   ```bash
+   vtex publish                              # Publish new app version
+   vtex workspace create prod-checkout --production
+   vtex workspace use prod-checkout
+   vtex install                              # Install in production workspace
+   vtex workspace promote                    # Promote to master after testing
+   ```
+
+## Project Architecture
+
+### Modern Build System
+The app uses a sophisticated build process that compiles modern JavaScript and SASS into optimized checkout files:
+
+```
+Source Files (src/checkout6/) → Webpack Build → Output (checkout-ui-custom/)
+├── components/               →                → checkout6-custom.js (29.9 KiB)
+├── modules/                  →                → checkout6-custom.css (12.7 KiB)
+├── styles/                   →                └── checkout6-custom.js.LICENSE.txt
+└── index.js
+```
+
+### Component System
+- **CartTitle**: "Resumen de la compra" header for cart step
+- **CouponTitle**: "¿Tienes un cupón de descuento?" in summary section
+- **RecommendedProducts**: Dynamic product carousel using VTEX API
+- **CheckoutHeader**: Custom header component (currently disabled)
+
+### Event-Driven Modules
+- **eventHandlers**: Central coordination for checkout step changes
+- **cartCheckboxes**: Terms and privacy acceptance with validation
+- **formEnhancements**: Internationalization and placeholder improvements
+- **checkoutSteps**: Visual progress indicator
+- **shippingInfo**: Dynamic shipping information display
+
+### Current Active Features
+
+#### Cart Step (`#/cart`)
+- Cart summary title with elegant styling
+- Coupon section title in summary template
+- Product recommendations carousel
+- Required terms and privacy checkboxes
+- International customer support (document/phone fields)
+
+#### Form Enhancements
+- Spanish placeholder text for input fields
+- Terms and conditions acceptance validation
+- Enhanced empty cart experience with gradient styling
+
+#### Visual Improvements
+- Responsive design optimized for mobile and desktop
+- BEM methodology CSS architecture
+- Modern SASS with `@use` syntax (no deprecation warnings)
+
+## Deployment and Version Management
+
+### How It Works
+Once deployed, the compiled scripts are automatically linked to your checkout and used to customize the user experience. The app uses VTEX IO's `checkout-ui-custom` builder to inject the compiled files into the checkout flow.
+
+### Version Control
+⚠️ **Important**: Checkout scripts are linked to specific app versions. Each published version is immutable, enabling:
+- **Safe rollbacks** to previous working versions
+- **A/B testing** between different checkout experiences
+- **Gradual deployments** through workspace promotion
+
+VTEX's Housekeeper service automatically updates app versions in accounts, ensuring stores receive the latest improvements while maintaining the ability to rollback if needed.
+
+### Production Considerations
+- Always test thoroughly in development workspace before promotion
+- Monitor checkout conversion rates after deploying new versions
+- Keep customizations minimal to avoid breaking core checkout functionality
+- Use semantic versioning for clear version management

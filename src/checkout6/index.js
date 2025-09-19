@@ -4,27 +4,25 @@ import { initializeCheckout, setupEventListeners } from './modules/eventHandlers
 import './styles.scss';
 
 document.addEventListener('DOMContentLoaded', () => {
-  console.log('🚀 HomeSentry Checkout6 - DOMContentLoaded event fired');
+  console.log('🚀 HomeSentry Checkout6 - Initialized');
 
-  // Render custom header component
-  const headerContainer = document.querySelector('#header-container');
-  if (headerContainer) {
-    console.log('✅ Header container found, rendering CheckoutHeader component');
-    render(<CheckoutHeader />, headerContainer);
-    console.log('✅ CheckoutHeader component rendered successfully');
-  } else {
-    console.log('⚠️ Header container not found (#header-container)');
-  }
+  // // Render custom header component (with safe fallback)
+  // let headerContainer = document.querySelector('#header-container')
+  // if (!headerContainer) {
+  //   headerContainer = document.getElementById('hs-checkout-header')
+  //   if (!headerContainer) {
+  //     headerContainer = document.createElement('div')
+  //     headerContainer.id = 'hs-checkout-header'
+  //     // Insert near the top of the page to ensure visibility
+  //     document.body.prepend(headerContainer)
+  //   }
+  // }
+
+  // render(<CheckoutHeader />, headerContainer)
 
   // Initialize checkout functionality
-  console.log('🔧 Initializing checkout functionality...');
   initializeCheckout();
-  console.log('✅ Checkout initialization completed');
 
   // Setup event listeners for dynamic behavior
-  console.log('🎧 Setting up event listeners...');
   setupEventListeners();
-  console.log('✅ Event listeners setup completed');
-
-  console.log('🎯 HomeSentry Checkout6 initialization complete!');
 });

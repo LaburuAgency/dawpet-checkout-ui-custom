@@ -4,29 +4,42 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is a VTEX IO Checkout UI Settings app for the HomeSentry store. It's a specialized VTEX app that allows customization of the checkout experience through CSS and JavaScript files, providing an alternative to direct admin interface customization with the benefits of version control, A/B testing, and rollback capabilities.
+This is a VTEX IO Checkout UI Settings app for the HomeSentry store that uses modern development tools including Webpack, Preact, and SASS for checkout6 customization. It provides version-controlled checkout customizations with the benefits of A/B testing, rollback capabilities, and modern JavaScript/CSS tooling.
 
 ## Key Architecture
 
 - **VTEX IO App**: Uses the `checkout-ui-custom` builder to deploy checkout customizations
-- **File-based Customizations**: CSS and JavaScript files in the `checkout-ui-custom/` directory are automatically applied to checkout pages
-- **Version-controlled Deployments**: Scripts are linked to specific app versions, enabling safe rollbacks
-- **Multi-checkout Support**: Supports different checkout versions (checkout5, checkout6, checkout-confirmation, checkout-instore)
+- **Modern Development Stack**: Webpack + Preact + SASS for component-based development
+- **Modular System**: Event-driven architecture with separate modules for different checkout features
+- **Build Process**: Source files in `src/checkout6/` are compiled to `checkout-ui-custom/` for VTEX deployment
+- **Component Architecture**: Preact components for dynamic checkout elements with module-based functionality
 
 ## Development Commands
 
-This project uses VTEX CLI for development and deployment. The lint script references Yarn commands but this project doesn't use a package.json in the root:
+### NPM Commands (Primary Development)
+```bash
+# Build for production
+npm run build
 
+# Build for development with source maps
+npm run build:dev
+
+# Watch for changes and rebuild automatically
+npm run watch
+
+# Format code with Prettier
+npm run format
+
+# Lint JavaScript/JSX files
+npm run lint
+```
+
+### VTEX CLI Commands
 ```bash
 # Development workflow:
 vtex link              # Link local app to development workspace for testing
 vtex publish           # Publish new app version
 vtex install           # Install app in current workspace
-
-# Pre-publish checks (from manifest.json):
-bash lint.sh           # Runs yarn, yarn format, and yarn lint (lint script may need updating)
-
-# Note: Currently no package.json exists, so yarn commands in lint.sh may not work
 
 # Workspace management:
 vtex whoami            # Check current workspace and account
@@ -41,85 +54,133 @@ vtex install           # Install app in production workspace
 vtex workspace promote # Promote workspace to master after testing
 ```
 
-## File Structure
+### Development Workflow
+1. Edit source files in `src/checkout6/`
+2. Run `npm run watch` for automatic rebuilding
+3. Test changes with `vtex link`
+4. Build production version with `npm run build`
+5. Publish with `vtex publish`
 
-- `manifest.json` - VTEX app configuration with checkout-ui-custom builder
-- `checkout-ui-custom/` - Checkout customization files:
-  - `checkout5-custom.css/js` - Legacy checkout (VTEX Checkout v5)
-  - `checkout6-custom.css/js` - Current checkout (VTEX Checkout v6)
-  - `checkout-confirmation-custom.css/js` - Order confirmation page
-  - `checkout-instore-custom.css/js` - In-store checkout interface
-- `docs/README.md` - Detailed setup and configuration instructions
-- `lint.sh` - Pre-publish script for code quality checks
-- `CHANGELOG.md` - Version history and changes
+## Source Code Architecture
 
-## Checkout Customization Architecture
+### Core Structure
+```
+src/checkout6/
+├── components/          # Preact components for UI elements
+├── modules/            # Feature modules with specific functionality
+├── styles/             # Modular SASS stylesheets
+├── index.js           # Main entry point and initialization
+└── styles.scss        # Main SASS file importing all modules
+```
 
-**File Targeting**: Each file targets specific checkout contexts:
-- `checkout5-*` - Legacy checkout interface (older VTEX stores)
-- `checkout6-*` - Modern checkout interface (current default)
-- `checkout-confirmation-*` - Post-purchase confirmation page
-- `checkout-instore-*` - Physical store checkout (VTEX inStore)
+### Component System
+- **CartTitle.jsx**: Displays "Resumen de la compra" title in cart step
+- **CouponTitle.jsx**: Shows "¿Tienes un cupón de descuento?" in summary section
+- **RecommendedProducts.jsx**: Product recommendation carousel with VTEX API integration
+- **CheckoutHeader.jsx**: Custom header component (currently disabled)
 
-**CSS Customizations**: Current active customizations include:
-- `.document-box { display: block; }` - Enable foreign document input
-- `.phone-box { display: block; }` - Enable international phone input
-- `body { background-color: #f3f3f3; }` - Light gray background
-- `.empty-cart-content` - Enhanced empty cart styling with gradient background
-- Checkout6 inherits base styles from checkout5 with additional customizations
+### Module System (Event-Driven Architecture)
+- **eventHandlers.js**: Central event coordination for hash changes and order form updates
+- **cartTitle.js**: Manages cart title insertion/removal based on checkout step
+- **couponTitle.js**: Handles coupon title display in summary template
+- **recommendedProducts.js**: Fetches and displays product recommendations from VTEX API
+- **cartCheckboxes.js**: Terms and privacy acceptance checkboxes with form validation
+- **checkoutSteps.js**: Visual checkout progress indicator
+- **formEnhancements.js**: Placeholder text and form field improvements
+- **shippingInfo.js**: Dynamic shipping information display
 
-**JavaScript Customizations**: Currently minimal, but supports:
-- Custom checkout behavior modifications
-- Form validation enhancements
-- Third-party integrations (analytics, payment methods)
+### Build Output
+```
+checkout-ui-custom/
+├── checkout6-custom.css    # Compiled SASS (12.7 KiB)
+├── checkout6-custom.js     # Bundled JavaScript with Preact (29.9 KiB)
+└── checkout6-custom.js.LICENSE.txt
+```
 
-## Development Guidelines
+## Modern SASS Architecture
 
-**Making Customizations**:
-- Edit CSS/JS files in `checkout-ui-custom/` directory
-- Target the appropriate checkout version (checkout5 vs checkout6)
-- Test changes in development workspace before publishing
-- Always run `bash lint.sh` before publishing (enforced by manifest.json)
+Uses `@use` instead of deprecated `@import` for better modularity:
+- **styles.scss**: Main file using `@use './styles/module' as *;`
+- **_recommended-products.scss**: Product carousel styling
+- **_cart-title.scss**: Cart summary title styling
+- **_coupon-title.scss**: Coupon section title styling
 
-**Version Management**:
-- Each published version becomes immutable
-- Checkout scripts are tied to specific app versions
-- Use semantic versioning for releases
-- Update CHANGELOG.md for all releases
+Variables and mixins are properly scoped with modern SASS API.
 
-**Safety Considerations**:
-- Custom scripts are not officially supported by VTEX
-- Always test thoroughly in development workspace
-- Scripts can potentially break checkout functionality
-- Keep customizations minimal and well-documented
+## Event-Driven System Design
 
-**Deployment Workflow**:
-1. Create development workspace
-2. Link app to workspace for testing
-3. Test checkout functionality thoroughly
-4. Create production workspace
-5. Install app in production workspace
-6. Verify functionality in production environment
-7. Promote workspace to master
+The checkout customization uses a centralized event system that responds to:
 
-## Important Notes
+### URL Hash Changes
+- **Cart step** (`#/cart`): Activates cart title, coupon title, checkboxes, recommended products
+- **Email/Profile steps**: Adds form placeholders and terms acceptance
+- **Shipping step**: Updates checkout progress indicators
+- **Payment step**: Final checkout step indicators
 
-**Checkout Version Compatibility**: This app supports multiple checkout versions. Checkout6 is the current standard, but checkout5 files are maintained for backward compatibility.
+### VTEX Events
+- **orderFormUpdated.vtex**: Triggered when cart contents change
+- **hashchange**: Browser navigation between checkout steps
+- All modules are re-initialized on these events for consistency
 
-**Script Warnings**: All JavaScript files include VTEX disclaimers about unsupported usage and potential risks to store functionality.
+### Component Lifecycle
+1. **Initialization**: `initializeCheckout()` sets up all modules for current step
+2. **Hash Changes**: `handleHashChange()` updates modules based on new step
+3. **Order Updates**: `handleOrderFormUpdate()` refreshes components after cart changes
+4. **Cleanup**: Components automatically remove themselves when not relevant
 
-**Housekeeper Integration**: VTEX's Housekeeper service automatically updates app versions in accounts, ensuring stores receive the latest customizations.
+## Development Patterns
 
-**Account-specific Vendor**: The `vendor` field in manifest.json must match the VTEX account name where the app will be installed.
+### Adding New Components
+1. Create component in `src/checkout6/components/ComponentName.jsx`
+2. Create module in `src/checkout6/modules/componentName.js` with insert/remove functions
+3. Import and call functions in `eventHandlers.js`
+4. Add SASS file in `src/checkout6/styles/_component-name.scss`
+5. Import SASS in `styles.scss` using `@use './styles/component-name' as *;`
 
-## Current Customizations
+### Creating Modules
+Each module should export:
+- `insertComponentName()`: Checks conditions and inserts component
+- `removeComponentName()`: Cleans up component when conditions not met
+- Follow pattern: check hash, find target element, create container, render component
 
-**Document and Phone Fields**: The primary customization enables display of foreign document and international phone input fields in the checkout form, supporting international customers.
+### SASS Organization
+- Use BEM methodology for class naming
+- Create component-specific SASS files with `_filename.scss`
+- Use modern `@use` syntax instead of `@import`
+- Include responsive breakpoints in component files
 
-**Enhanced Empty Cart Styling**: Recent additions include gradient background styling for empty cart pages with improved visual design.
+## VTEX Integration Details
 
-**Version Inheritance**: Checkout6 inherits base styles from checkout5 with additional version-specific customizations applied on top.
+### Build Process Integration
+- **webpack.config.js**: Configured with modern SASS API (`api: 'modern'`)
+- **Preact aliases**: React/React-DOM mapped to Preact for smaller bundle size
+- **Babel configuration**: JSX transpiled with Preact runtime
+- **manifest.json**: VTEX app configuration with `checkout-ui-custom` builder
 
-## Current Development Status
+### VTEX API Integration
+- **Product Recommendations**: Uses `/api/catalog_system/pub/products/search` endpoint
+- **Cart Operations**: Integrates with `window.vtexjs.checkout.addToCart()` API
+- **Order Form**: Responds to VTEX's native `orderFormUpdated.vtex` events
 
-There are uncommitted changes to `checkout6-custom.css` that include enhanced empty cart styling with gradient backgrounds and improved layout.
+### Deployment Considerations
+- **prereleasy script**: Runs `bash lint.sh` before VTEX publishing (configured in manifest.json)
+- **Account-specific vendor**: `vendor: "homesentry"` must match VTEX account
+- **Version immutability**: Each published version is permanent, enabling safe rollbacks
+
+## Current Active Features
+
+### Cart Step Enhancements
+- **Cart Title**: "Resumen de la compra" inserted at start of `.checkout-container`
+- **Coupon Title**: "¿Tienes un cupón de descuento?" in `.summary-template-holder`
+- **Recommended Products**: VTEX API-powered product carousel after checkout container
+- **Terms Checkboxes**: Required acceptance checkboxes with cart button disable logic
+
+### Form Enhancements
+- **International Support**: Enabled `.document-box` and `.phone-box` for global customers
+- **Placeholder Text**: Spanish placeholders for email, name, and document fields
+- **Validation**: Terms and privacy acceptance required before cart progression
+
+### Visual Improvements
+- **Empty Cart Styling**: Gradient backgrounds with decorative elements
+- **Checkout Steps**: Visual progress indicator with step highlighting
+- **Responsive Design**: Mobile-optimized layouts for all components
