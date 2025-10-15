@@ -12,6 +12,9 @@
 // Use type selector
 @use './styles/document-type-selector' as *;
 
+// Use address composer
+@use './styles/addressComposer' as *;
+
 // Variables
 $primary-background: #ffffff;
 $empty-cart-gradient: linear-gradient(135deg, rgba(239, 246, 255, 0.92), rgba(236, 253, 245, 0.92));

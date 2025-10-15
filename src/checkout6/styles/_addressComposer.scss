@@ -1,0 +1,36 @@
+.hs-address-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: end;
+  margin-bottom: 20px;
+}
+.hs-select {
+  width: 40%;
+}
+input#hs-n1,
+input#hs-nhash,
+#hs-ndash {
+  width: 16% !important;
+}
+span.hs-sep {
+  line-height: 40px;
+}
+select#hs-via {
+  background-color: #f3f3f3;
+  box-shadow: 0 0 0;
+  color: #7a8492;
+  border-radius: 30px !important;
+  padding: 0 17px !important;
+  border: 0 !important;
+}
+select#hs-via:focus {
+  box-shadow: 0 0 0 !important;
+}
+div#hs-preview {
+  display: none;
+}
+input#ship-street {
+  pointer-events: none;
+  opacity: 0.5;
+}
