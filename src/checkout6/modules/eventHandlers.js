@@ -5,6 +5,7 @@ import { addShippingInfo } from './shippingInfo.js'
 import { addRecommendedProducts } from './recommendedProducts.js'
 import { insertCartTitle } from './cartTitle.js'
 import { insertCouponTitle } from './couponTitle.js'
+import { addDocumentTypeSelector } from './documentTypeSelector.js'
 
 export const initializeCheckout = () => {
   checkoutStepsReader()
@@ -12,6 +13,7 @@ export const initializeCheckout = () => {
   insertCouponTitle()
   addCartCheckboxes()
   addRecommendedProducts()
+  addDocumentTypeSelector()
 
   const hash = window.location.hash
 
@@ -27,6 +29,7 @@ export const handleHashChange = () => {
   insertCouponTitle()
   addCartCheckboxes()
   addRecommendedProducts()
+  addDocumentTypeSelector()
 
   const hash = window.location.hash
 
@@ -45,6 +48,7 @@ export const handleOrderFormUpdate = (evt, orderForm) => {
     insertCouponTitle()
     addCartCheckboxes()
     addRecommendedProducts()
+    addDocumentTypeSelector()
   }, 200)
 
   if (hash.includes('email') || hash.includes('profile')) {

@@ -9,6 +9,9 @@
 // Use coupon title styles
 @use './styles/coupon-title' as *;
 
+// Use type selector
+@use './styles/document-type-selector' as *;
+
 // Variables
 $primary-background: #ffffff;
 $empty-cart-gradient: linear-gradient(135deg, rgba(239, 246, 255, 0.92), rgba(236, 253, 245, 0.92));
@@ -351,6 +354,82 @@ input[placeholder] {
       }
     }
   }
+}
+
+// Campos
+.orderform-template-holder #client-profile-data form.client-pre-email, .orderform-template-holder #client-profile-data .step.client-profile-data, .orderform-template-holder #shipping-data, .orderform-template-holder #payment-data {
+    background-color: #FAFAFA;
+}
+fieldset.box-client-info-pj {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    order: 1;
+    margin-bottom: 10px;
+}
+a#is-corporate-client:after {
+    content: "Click aquí";
+    margin-left: 20px;
+    border: 1px solid #000;
+    padding: 10px 20px;
+    border-radius: 25px;
+}
+a#is-corporate-client:hover:after {
+    background-color: #000;
+    color: #fff;
+}
+.box-client-info .row-fluid {
+    display: grid;
+}
+fieldset.box-client-info-pf {
+    order: 2;
+}
+.orderform-template-holder.span8 input, fieldset.coupon-fieldset input {
+    background-color: #F3F3F3;
+    border: 0 !important;
+    border-radius: 30px !important;
+    outline: none !important;
+    box-shadow: none !important;
+    padding: 0 20px !important;
+}
+.cart-template.mini-cart.span4 {
+    border: 1px solid #efefef;
+    border-radius: 10px;
+}
+.orderform-template .cart-template.mini-cart .item,
+.orderform-template .cart-template.mini-cart .summary-template-holder .summary>.summary-coupon-wrap,
+.orderform-template .cart-template.mini-cart .summary-totalizers tbody,
+.table.cart-items tbody tr {
+    border: 0;
+}
+p.input.ship-state.required.text {
+    margin-right: 10px;
+}
+.accordion-heading span:before {
+    background: transparent !important;
+    color: #000 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    vertical-align: middle !important;
+    border: 0 !important;
+    font-weight: 600 !important;
+    font-size: 18px !important;
+    width: auto !important;
+    margin-right: 5px !important;
+}
+span.accordion-toggle.collapsed.accordion-toggle-active,
+span.accordion-toggle.collapsed.accordion-toggle-active span:before {
+    color: #044ea3 !important;
+}
+.App.iframe-credit-card-payment-group input, .App.iframe-credit-card-payment-group select {
+    border-radius: 20px !important;
+    border: 1px solid #ccc !important;
+}
+.PaymentCardCVVHelp {
+    right: 0 !important;
+}
+td.monetary {
+    min-width: 125px;
 }
 
 // Responsive design
