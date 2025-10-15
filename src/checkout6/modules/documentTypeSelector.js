@@ -60,18 +60,16 @@ const createDocumentTypeSelector = () => {
   console.log(container, documentInput.parentElement)
 
   // Insert the selector before the document input
- // Insertar el selector ANTES del input (mismo padre del input)
-if (documentInput.parentElement) {
-  documentInput.parentElement.insertBefore(container, documentInput);
-} else if (documentBox.contains(documentInput)) {
-  // Fallback por si cambia la estructura
-  documentInput.before(container);
-} else {
-  // Último recurso: al inicio del contenedor
-  documentBox.insertBefore(container, documentBox.firstChild);
-}
-
-  
+  // Insertar el selector ANTES del input (mismo padre del input)
+  if (documentInput.parentElement) {
+    documentInput.parentElement.insertBefore(container, documentInput)
+  } else if (documentBox.contains(documentInput)) {
+    // Fallback por si cambia la estructura
+    documentInput.before(container)
+  } else {
+    // Último recurso: al inicio del contenedor
+    documentBox.insertBefore(container, documentBox.firstChild)
+  }
 
   return container
 }

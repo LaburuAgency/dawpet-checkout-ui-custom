@@ -1,38 +1,39 @@
 select#document-type-selector {
-    background-color: #f3f3f3;
-    box-shadow: 0 0 0;
-    color: #7a8492;
-    border-radius: 30px !important;
-    padding: 0 17px !important;
-    border: 0 !important;
+  background-color: #f3f3f3;
+  box-shadow: 0 0 0;
+  color: #7a8492;
+  border-radius: 30px !important;
+  padding: 0 17px !important;
+  border: 0 !important;
 }
 select#document-type-selector:focus {
-    box-shadow: 0 0 0 !important;
+  box-shadow: 0 0 0 !important;
 }
 p.client-document {
-    width: 100% !important;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-    margin-top: 20px;
+  width: 100% !important;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 20px;
 }
-label[for="client-document"],
-.document-box, .phone-box {
-    display: none !important;
+label[for='client-document'],
+.document-box,
+.phone-box {
+  display: none !important;
 }
-p.client-company-ie, p.client-company-document {
-    width: 49%;
+p.client-company-ie,
+p.client-company-document {
+  width: 49%;
 }
-label[for="client-company-ie"], label[for="client-company-document"] {
-    font-size: 0;
+label[for='client-company-ie'],
+label[for='client-company-document'] {
+  font-size: 0;
 }
-label[for="client-company-ie"]:after {
-    content: "NIT sin digito de verificación";
-    font-size: 14px;
+label[for='client-company-ie']:after {
+  content: 'NIT sin digito de verificación';
+  font-size: 14px;
 }
-label[for="client-company-document"]:after {
-    content: "NIT con digito de verificación";
-    font-size: 14px;
+label[for='client-company-document']:after {
+  content: 'NIT con digito de verificación';
+  font-size: 14px;
 }
-
-
