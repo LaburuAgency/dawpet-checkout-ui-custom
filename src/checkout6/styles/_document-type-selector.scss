@@ -41,7 +41,7 @@
   width: 100% !important;
   display: grid;
   grid-template-columns: auto 1fr;
-  gap: 10px ;
+  gap: 10px;
   margin-top: 20px;
 }
 
@@ -114,7 +114,8 @@ label[for='ship-street'] {
   transition: all 0.3s ease;
 }
 
-p.client-first-name, p.client-last-name {
+p.client-first-name,
+p.client-last-name {
   width: 100% !important;
 }
 
