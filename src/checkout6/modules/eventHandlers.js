@@ -7,6 +7,7 @@ import { insertCartTitle } from './cartTitle.js'
 import { insertCouponTitle } from './couponTitle.js'
 import { addDocumentTypeSelector } from './documentTypeSelector.js'
 import { addAddressComposer } from './addressComposer.js'
+import { addPhoneTemplateSelector } from './phoneTemplate.js'
 
 export const initializeCheckout = () => {
   checkoutStepsReader()
@@ -16,6 +17,7 @@ export const initializeCheckout = () => {
   addRecommendedProducts()
   addDocumentTypeSelector()
   addAddressComposer()
+  addPhoneTemplateSelector()
 
   const hash = window.location.hash
 
@@ -33,6 +35,7 @@ export const handleHashChange = () => {
   addRecommendedProducts()
   addDocumentTypeSelector()
   addAddressComposer()
+  addPhoneTemplateSelector()
 
   const hash = window.location.hash
 
@@ -53,6 +56,7 @@ export const handleOrderFormUpdate = (evt, orderForm) => {
     addRecommendedProducts()
     addDocumentTypeSelector()
     addAddressComposer()
+    addPhoneTemplateSelector()
   }, 200)
 
   if (hash.includes('email') || hash.includes('profile')) {

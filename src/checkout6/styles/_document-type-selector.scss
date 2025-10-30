@@ -1,3 +1,70 @@
+// Flexbox layout for box-client-info-pf to reorder elements
+.box-client-info-pf {
+  display: flex;
+  flex-direction: column;
+}
+
+// Reorder elements using CSS order property
+.box-client-info-pf > .client-notice {
+  order: 1;
+}
+
+.box-client-info-pf > .client-email {
+  order: 2;
+}
+
+// Name fields wrapper - Default 2 columns
+.box-client-info-pf > #name-fields-wrapper {
+  order: 3;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  width: 100%;
+}
+
+// Name fields wrapper - Single column for NIT
+.box-client-info-pf > #name-fields-wrapper.nit-mode {
+  grid-template-columns: 1fr;
+}
+
+.box-client-info-pf > p.client-first-name {
+  display: flex;
+  order: 3;
+}
+
+.box-client-info-pf > p.client-last-name {
+  order: 4;
+}
+
+.box-client-info-pf > p.client-document {
+  order: 2;
+  width: 100% !important;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 10px ;
+  margin-top: 20px;
+}
+
+// Name fields wrapper styling when wrapped
+.name-fields-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  width: 100%;
+  order: 3;
+
+  p {
+    margin: 0;
+    width: 100%;
+  }
+}
+
+// Document type selector wrapper styling
+.document-type-selector-wrapper {
+  display: inline-block;
+  grid-column: 1;
+}
+
 select#document-type-selector {
   background-color: #f3f3f3;
   box-shadow: 0 0 0;
@@ -9,17 +76,18 @@ select#document-type-selector {
 select#document-type-selector:focus {
   box-shadow: 0 0 0 !important;
 }
-p.client-document {
-  width: 100% !important;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-  margin-top: 20px;
-}
+
 label[for='client-document'],
 .document-box,
 .phone-box {
   display: none !important;
+}
+
+// Phone template container - detected and styled by JS
+.phone-template-container {
+  order: 3;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
 }
 p.client-company-ie,
 p.client-company-document {
@@ -39,4 +107,22 @@ label[for='client-company-document']:after {
 }
 label[for='ship-street'] {
   display: none !important;
+}
+
+// NIT-specific styles
+.client-first-name {
+  transition: all 0.3s ease;
+}
+
+p.client-first-name, p.client-last-name {
+  width: 100% !important;
+}
+
+// Hide company data section when NIT is selected
+.box-client-info-pj[style*='display: none'] {
+  opacity: 0;
+  height: 0;
+  overflow: hidden;
+  margin: 0 !important;
+  padding: 0 !important;
 }
