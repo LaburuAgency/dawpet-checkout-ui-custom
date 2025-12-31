@@ -69,8 +69,8 @@ const bindEvents = (wrapper, shipStreet) => {
     const value = composeAddress(via.value, n1.value, nhash.value, ndash.value)
     preview.textContent = value || 'Dirección'
     shipStreet.value = value
-    shipStreet.dispatchEvent(new Event('input', { bubbles: true }))
-    shipStreet.dispatchEvent(new Event('change', { bubbles: true }))
+    // shipStreet.dispatchEvent(new Event('input', { bubbles: true }))
+    // shipStreet.dispatchEvent(new Event('change', { bubbles: true }))
   }
 
   ;[via, n1, nhash, ndash].forEach((el) => el.addEventListener('input', pushToVTEX))

@@ -105,6 +105,9 @@ label[for='client-company-document']:after {
   content: 'NIT con digito de verificación';
   font-size: 14px;
 }
+
+// REMOVED: Redundant rule that interfered with VTEX shipping preview initialization
+// The address composers already hide this input programmatically via aria-hidden
 label[for='ship-street'] {
   display: none !important;
 }

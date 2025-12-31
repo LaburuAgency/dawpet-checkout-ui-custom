@@ -1,0 +1,262 @@
+// Address Composer V2 Styles
+// Enhanced version with visible preview and improved responsive design
+
+.hs-address-composer-v2 {
+  margin-bottom: 20px;
+
+  // Grid layout for address inputs
+  .hs-address-grid-v2 {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: end;
+    margin-bottom: 16px;
+  }
+
+  // Via type selector container
+  .hs-select-v2 {
+    width: 40%;
+    min-width: 180px;
+  }
+
+  // Label styling
+  .hs-label-v2 {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: #0f172a;
+    margin-bottom: 6px;
+  }
+
+  // Select element styling
+  select#hs-via-v2 {
+    width: 100%;
+    background-color: #f3f3f3;
+    box-shadow: 0 0 0;
+    color: #7a8492;
+    border-radius: 30px !important;
+    padding: 0 17px !important;
+    border: 0 !important;
+    height: 40px;
+    font-size: 14px;
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%237a8492' d='M6 8L0 0h12z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 17px center;
+    padding-right: 40px !important;
+
+    &:focus {
+      box-shadow: 0 0 0 !important;
+      outline: 2px solid #16a34a;
+      outline-offset: 2px;
+      color: #0f172a;
+    }
+
+    &:hover {
+      background-color: #e8e8e8;
+    }
+  }
+
+  // Localidad container (solo visible en Bogotá)
+  .hs-localidad-container-v2 {
+    width: 100%;
+    margin-top: 12px;
+    margin-bottom: 6px;
+    display: none; // Oculto por defecto
+
+    // Cuando está visible
+    &[style*='display: block'] {
+      display: block;
+    }
+  }
+
+  // Select de localidad (mismos estilos que tipo de vía)
+  select#hs-localidad-v2 {
+    width: 100%;
+    background-color: #f3f3f3;
+    box-shadow: 0 0 0;
+    color: #7a8492;
+    border-radius: 30px !important;
+    padding: 0 17px !important;
+    border: 0 !important;
+    height: 40px;
+    font-size: 14px;
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%237a8492' d='M6 8L0 0h12z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 17px center;
+    padding-right: 40px !important;
+
+    &:focus {
+      box-shadow: 0 0 0 !important;
+      outline: 2px solid #16a34a;
+      outline-offset: 2px;
+      color: #0f172a;
+    }
+
+    &:hover {
+      background-color: #e8e8e8;
+    }
+
+    // Estado de error cuando no se selecciona en Bogotá
+    &.error {
+      border: 2px solid #ef4444 !important;
+      background-color: #fef2f2;
+
+      &:focus {
+        outline-color: #ef4444;
+      }
+    }
+  }
+
+  // Numeric input styling
+  input#hs-n1-v2,
+  input#hs-nhash-v2,
+  input#hs-ndash-v2 {
+    width: 16% !important;
+    min-width: 60px;
+    background-color: #f3f3f3;
+    border: 0 !important;
+    border-radius: 30px !important;
+    padding: 0 15px !important;
+    height: 40px;
+    font-size: 14px;
+    text-align: center;
+
+    &:focus {
+      outline: 2px solid #16a34a;
+      outline-offset: 2px;
+      background-color: #fff;
+    }
+
+    &::placeholder {
+      color: #94a3b8;
+      font-style: italic;
+    }
+  }
+
+  // Separator styling (# and -)
+  span.hs-sep-v2 {
+    line-height: 40px;
+    font-weight: 600;
+    color: #475569;
+    font-size: 16px;
+    user-select: none;
+  }
+
+  // Preview box styling - visible with green background
+  div#hs-preview-v2 {
+    display: block;
+    padding: 12px 16px;
+    background-color: rgba(22, 163, 74, 0.1);
+    border: 1px solid rgba(22, 163, 74, 0.2);
+    border-radius: 8px;
+    color: #15803d;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.5;
+    transition: all 0.2s ease-in-out;
+
+    &:empty::before {
+      content: 'Dirección';
+      color: #94a3b8;
+      font-style: italic;
+    }
+  }
+
+  // Native input - hidden but accessible for screen readers
+  input.hs-hidden-ship-street-v2 {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  // Responsive adjustments for tablets
+  @media (max-width: 768px) {
+    .hs-address-grid-v2 {
+      gap: 8px;
+    }
+
+    .hs-select-v2 {
+      width: 100%;
+    }
+
+    input#hs-n1-v2,
+    input#hs-nhash-v2,
+    input#hs-ndash-v2 {
+      width: 30% !important;
+      min-width: 70px;
+    }
+
+    span.hs-sep-v2 {
+      width: auto;
+      flex-shrink: 0;
+    }
+  }
+
+  // Responsive adjustments for mobile phones
+  @media (max-width: 480px) {
+    .hs-address-grid-v2 {
+      gap: 6px;
+    }
+
+    .hs-select-v2 {
+      width: 100%;
+      margin-bottom: 4px;
+    }
+
+    input#hs-n1-v2,
+    input#hs-nhash-v2,
+    input#hs-ndash-v2 {
+      width: calc(33.333% - 4px) !important;
+      min-width: 55px;
+      font-size: 13px;
+    }
+
+    span.hs-sep-v2 {
+      display: none;
+    }
+
+    div#hs-preview-v2 {
+      padding: 10px 14px;
+      font-size: 13px;
+    }
+
+    select#hs-via-v2 {
+      font-size: 13px;
+    }
+
+    // Localidad en mobile
+    .hs-localidad-container-v2 {
+      margin-top: 10px;
+    }
+
+    select#hs-localidad-v2 {
+      font-size: 13px;
+    }
+  }
+
+  // Accessibility improvements
+  @media (prefers-reduced-motion: reduce) {
+    div#hs-preview-v2 {
+      transition: none;
+    }
+  }
+
+  // High contrast mode support
+  @media (prefers-contrast: high) {
+    select#hs-via-v2,
+    input.hs-input-v2 {
+      border: 2px solid currentColor !important;
+    }
+
+    div#hs-preview-v2 {
+      border: 2px solid #15803d;
+    }
+  }
+}

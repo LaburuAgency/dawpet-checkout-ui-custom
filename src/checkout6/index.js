@@ -3,7 +3,7 @@ import CheckoutHeader from './components/CheckoutHeader.jsx'
 import { initializeCheckout, setupEventListeners } from './modules/eventHandlers.js'
 import './styles.scss'
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
   console.log('🚀 HomeSentry Checkout6 - Initialized')
 
   // // Render custom header component (with safe fallback)
@@ -20,8 +20,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // render(<CheckoutHeader />, headerContainer)
 
-  // Initialize checkout functionality
-  initializeCheckout()
+  // Initialize checkout functionality (now async)
+  await initializeCheckout()
 
   // Setup event listeners for dynamic behavior
   setupEventListeners()
