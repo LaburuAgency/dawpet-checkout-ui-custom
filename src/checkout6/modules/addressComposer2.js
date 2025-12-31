@@ -220,10 +220,7 @@ const bindEvents = (wrapper, shipStreet) => {
   }
 
   // Use native value setter so Knockout/VTEX bindings detect the change reliably
-  const nativeValueSetter = Object.getOwnPropertyDescriptor(
-    window.HTMLInputElement.prototype,
-    'value'
-  )?.set
+  const nativeValueSetter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value')?.set
 
   // Function to toggle localidad field visibility
   const toggleLocalidadField = () => {
@@ -372,8 +369,7 @@ const setupAddressObserver = () => {
  */
 export const addAddressComposer2 = () => {
   // Only run on shipping/delivery step
-  const onShippingStep =
-    window.location.hash.includes('shipping') || window.location.hash.includes('delivery')
+  const onShippingStep = window.location.hash.includes('shipping') || window.location.hash.includes('delivery')
 
   if (!onShippingStep) {
     removeAddressComposer2()
