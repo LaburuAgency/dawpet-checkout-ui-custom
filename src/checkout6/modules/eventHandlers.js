@@ -6,17 +6,51 @@ import { addRecommendedProducts } from './recommendedProducts.js'
 import { insertCartTitle } from './cartTitle.js'
 import { insertCouponTitle } from './couponTitle.js'
 import { addDocumentTypeSelector } from './documentTypeSelector.js'
-import { addAddressComposer } from './addressComposer.js'
+// import { addAddressComposer } from './addressComposer.js' // V1 disabled
+import { addAddressComposer2 } from './addressComposer2.js'
 import { addPhoneTemplateSelector } from './phoneTemplate.js'
 
-export const initializeCheckout = () => {
+// Helper function to wait for VTEX to be ready
+const waitForVtexReady = () => {
+  return new Promise((resolve) => {
+    // Check if VTEX orderForm is already available
+    if (window.vtexjs?.checkout?.orderForm) {
+      console.log('✅ VTEX already initialized')
+      resolve()
+      return
+    }
+
+    // Otherwise, wait for orderFormUpdated event
+    console.log('⏳ Waiting for VTEX to initialize...')
+    const handler = () => {
+      console.log('✅ VTEX initialized via orderFormUpdated event')
+      window.removeEventListener('orderFormUpdated.vtex', handler)
+      resolve()
+    }
+    window.addEventListener('orderFormUpdated.vtex', handler)
+
+    // Fallback timeout after 3 seconds
+    setTimeout(() => {
+      console.log('⚠️ VTEX initialization timeout - proceeding anyway')
+      window.removeEventListener('orderFormUpdated.vtex', handler)
+      resolve()
+    }, 3000)
+  })
+}
+
+export const initializeCheckout = async () => {
   checkoutStepsReader()
   insertCartTitle()
   insertCouponTitle()
   addCartCheckboxes()
   addRecommendedProducts()
   addDocumentTypeSelector()
-  addAddressComposer()
+
+  // CRITICAL: Wait for VTEX to be ready before manipulating shipping DOM
+  await waitForVtexReady()
+
+  // addAddressComposer() // V1 disabled - using V2 only
+  addAddressComposer2()
   addPhoneTemplateSelector()
 
   const hash = window.location.hash
@@ -34,7 +68,8 @@ export const handleHashChange = () => {
   addCartCheckboxes()
   addRecommendedProducts()
   addDocumentTypeSelector()
-  addAddressComposer()
+  // addAddressComposer() // V1 disabled - using V2 only
+  addAddressComposer2()
   addPhoneTemplateSelector()
 
   const hash = window.location.hash
@@ -55,7 +90,8 @@ export const handleOrderFormUpdate = (evt, orderForm) => {
     addCartCheckboxes()
     addRecommendedProducts()
     addDocumentTypeSelector()
-    addAddressComposer()
+    // addAddressComposer() // V1 disabled - using V2 only
+    addAddressComposer2()
     addPhoneTemplateSelector()
   }, 200)
 
