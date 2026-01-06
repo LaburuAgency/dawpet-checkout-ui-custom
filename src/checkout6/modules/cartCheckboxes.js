@@ -40,11 +40,11 @@ export const addCartCheckboxes = () => {
       <div class="cart-checkboxes-container">
         <div class="checkbox-item">
           <input type="checkbox" id="terms-checkbox" name="terms-checkbox">
-          <label for="terms-checkbox">Acepto los <a href="#" target="_blank" rel="noopener noreferrer">términos y condiciones</a></label>
+          <label for="terms-checkbox">Acepto los <a href="/terminos-y-condiciones" target="_blank" rel="noopener noreferrer">términos y condiciones</a></label>
         </div>
         <div class="checkbox-item">
           <input type="checkbox" id="privacy-checkbox" name="privacy-checkbox">
-          <label for="privacy-checkbox">Acepto la <a href="#" target="_blank" rel="noopener noreferrer">política de tratamiento de datos</a></label>
+          <label for="privacy-checkbox">Acepto la <a href="/tratamiento-de-datos" target="_blank" rel="noopener noreferrer">política de tratamiento de datos</a></label>
         </div>
       </div>
     `
