@@ -39,8 +39,7 @@ const toDeferredPromise = (d) =>
     d.done(resolve).fail(reject)
   })
 
-const getDocumentTypeMeta = (value) =>
-  DOCUMENT_TYPES.find((t) => t.value === value) || { value, label: value }
+const getDocumentTypeMeta = (value) => DOCUMENT_TYPES.find((t) => t.value === value) || { value, label: value }
 
 const setOpenTextFieldJson = async (patch) => {
   // VTEX checkout vtexjs uses jQuery Deferred, not native Promises
