@@ -13,6 +13,67 @@ const DOCUMENT_TYPES = [
   { value: 'nit', label: 'NIT' },
 ]
 
+// Persist selected document type in the orderForm without changing clientProfileData.isCorporate
+// We use openTextField because customData/setCustomData may not be available in this checkout context.
+const OPEN_TEXT_NAMESPACE = 'hs'
+const OPEN_TEXT_KEYS = {
+  documentType: 'documentType',
+  documentTypeLabel: 'documentTypeLabel',
+}
+
+const safeJsonParse = (value) => {
+  if (!value || typeof value !== 'string') return null
+  try {
+    return JSON.parse(value)
+  } catch (_) {
+    return null
+  }
+}
+
+const toDeferredPromise = (d) =>
+  new Promise((resolve, reject) => {
+    if (!d || typeof d.done !== 'function' || typeof d.fail !== 'function') {
+      reject(new Error('Expected a jQuery Deferred'))
+      return
+    }
+    d.done(resolve).fail(reject)
+  })
+
+const getDocumentTypeMeta = (value) => DOCUMENT_TYPES.find((t) => t.value === value) || { value, label: value }
+
+const setOpenTextFieldJson = async (patch) => {
+  // VTEX checkout vtexjs uses jQuery Deferred, not native Promises
+  if (!window?.vtexjs?.checkout?.getOrderForm || !window?.vtexjs?.checkout?.sendAttachment) return
+
+  const of = await toDeferredPromise(window.vtexjs.checkout.getOrderForm())
+  const currentRaw = of?.openTextField?.value || ''
+  const current = safeJsonParse(currentRaw) || {}
+
+  // Namespaced payload to avoid collisions with other scripts
+  const next = {
+    ...current,
+    [OPEN_TEXT_NAMESPACE]: {
+      ...(current[OPEN_TEXT_NAMESPACE] || {}),
+      ...patch,
+    },
+  }
+
+  // Persist back to orderForm
+  await toDeferredPromise(
+    window.vtexjs.checkout.sendAttachment('openTextField', {
+      value: JSON.stringify(next),
+    })
+  )
+}
+
+const persistSelectedDocumentType = async (documentType) => {
+  const meta = getDocumentTypeMeta(documentType)
+  await setOpenTextFieldJson({
+    [OPEN_TEXT_KEYS.documentType]: meta.value,
+    [OPEN_TEXT_KEYS.documentTypeLabel]: meta.label,
+  })
+}
+
 /**
  * Helper function to update input value and trigger Knockout.js events
  * @param {HTMLElement} input - The input element to update
@@ -135,6 +196,11 @@ const updateDocumentField = (documentType, isUserChange = false) => {
 
   // Store document type in a data attribute
   documentInput.setAttribute('data-document-type', documentType)
+
+  // Persist selected type into orderForm.openTextField (non-blocking)
+  persistSelectedDocumentType(documentType).catch(() => {
+    // Silent fail: do not break checkout UI if VTEX blocks the attachment
+  })
 
   // Handle NIT-specific form modifications
   handleNitFormChanges(documentType, isUserChange)
