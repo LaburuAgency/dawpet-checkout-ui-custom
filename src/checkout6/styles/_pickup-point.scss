@@ -1,0 +1,21 @@
+/* Pickup Point Customizations */
+
+// Hide the pickup point change button
+#change-pickup-button,
+.button-change-pickup-point {
+  display: none !important;
+}
+
+// Hide the duplicate address number in pickup point addresses
+.pickup-point-address,
+.address-summary {
+  span .number-delimiter,
+  span .number {
+    display: none !important;
+  }
+}
+
+// Hide the SLA time in the delivery selector
+.srp-delivery-current-many__sla {
+  display: none !important;
+}

@@ -18,6 +18,9 @@
 // Use address composer v2
 @use './styles/addressComposer2' as *;
 
+// Use pickup point styles
+@use './styles/pickup-point' as *;
+
 // Variables
 $primary-background: #ffffff;
 $empty-cart-gradient: linear-gradient(135deg, rgba(239, 246, 255, 0.92), rgba(236, 253, 245, 0.92));
@@ -489,4 +492,8 @@ td.monetary {
       }
     }
   }
+}
+
+.payment-mercadopago-footer-info-text {
+  margin-top: 0 !important;
 }

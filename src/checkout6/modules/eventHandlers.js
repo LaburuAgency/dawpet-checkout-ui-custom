@@ -9,6 +9,10 @@ import { addDocumentTypeSelector } from './documentTypeSelector.js'
 // import { addAddressComposer } from './addressComposer.js' // V1 disabled
 import { addAddressComposer2 } from './addressComposer2.js'
 import { addPhoneTemplateSelector } from './phoneTemplate.js'
+import { updateDeliveryTitle } from './deliveryTitle.js'
+import { updateDeliveryOptions } from './deliveryOptions.js'
+import { setupAddiLabelObserver, cleanupAddiLabelObserver } from './addiPaymentLabel.js'
+import { setupCartTableObserver, cleanupCartTableObserver } from './cartTableLabels.js'
 
 // Helper function to wait for VTEX to be ready
 const waitForVtexReady = () => {
@@ -52,6 +56,10 @@ export const initializeCheckout = async () => {
   // addAddressComposer() // V1 disabled - using V2 only
   addAddressComposer2()
   addPhoneTemplateSelector()
+  updateDeliveryTitle()
+  updateDeliveryOptions()
+  setupAddiLabelObserver()
+  setupCartTableObserver()
 
   const hash = window.location.hash
 
@@ -71,8 +79,24 @@ export const handleHashChange = () => {
   // addAddressComposer() // V1 disabled - using V2 only
   addAddressComposer2()
   addPhoneTemplateSelector()
+  updateDeliveryTitle()
+  updateDeliveryOptions()
 
   const hash = window.location.hash
+
+  // Setup payment labels observer for payment step
+  if (hash.includes('payment')) {
+    setupAddiLabelObserver()
+  } else {
+    cleanupAddiLabelObserver()
+  }
+
+  // Setup cart table labels observer for cart step
+  if (hash.includes('cart')) {
+    setupCartTableObserver()
+  } else {
+    cleanupCartTableObserver()
+  }
 
   if (hash.includes('email') || hash.includes('profile')) {
     addPlaceholder()
@@ -93,6 +117,18 @@ export const handleOrderFormUpdate = (evt, orderForm) => {
     // addAddressComposer() // V1 disabled - using V2 only
     addAddressComposer2()
     addPhoneTemplateSelector()
+    updateDeliveryTitle()
+    updateDeliveryOptions()
+
+    // Setup payment labels observer if in payment step
+    if (hash.includes('payment')) {
+      setupAddiLabelObserver()
+    }
+
+    // Setup cart table labels observer if in cart step
+    if (hash.includes('cart')) {
+      setupCartTableObserver()
+    }
   }, 200)
 
   if (hash.includes('email') || hash.includes('profile')) {
