@@ -56,7 +56,7 @@ const setupCartTableObserver = () => {
   cartTableObserver.observe(cartContainer, {
     childList: true,
     subtree: true,
-    characterData: true
+    characterData: true,
   })
 }
 
