@@ -34,7 +34,9 @@ const updateDeliveryOptions = () => {
   const tradicionalOption = document.getElementById('sla-option-Entrega Tradicional')
   if (tradicionalOption) {
     const price = extractPrice(tradicionalOption.textContent)
-    tradicionalOption.textContent = price ? `BOG: 1-3 días hábiles, resto país 3-8 días hábiles - ${price}` : 'BOG: 1-3 días hábiles, resto país 3-8 días hábiles'
+    tradicionalOption.textContent = price
+      ? `BOG: 1-3 días hábiles, resto país 3-8 días hábiles - ${price}`
+      : 'BOG: 1-3 días hábiles, resto país 3-8 días hábiles'
   }
 
   // ===== UPDATE DETAILED SHIPPING OPTIONS =====

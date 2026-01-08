@@ -15,9 +15,7 @@ const updatePaymentLabels = () => {
 
   // ===== ADDI PAYMENT LABELS =====
   // Find all elements that contain "Addi" text in payment section
-  const addiPaymentGroupText = document.querySelector(
-    '#payment-group-AddiPaymentGroup .payment-group-item-text'
-  )
+  const addiPaymentGroupText = document.querySelector('#payment-group-AddiPaymentGroup .payment-group-item-text')
   const addiPaymentGroupH3 = document.querySelector('.box-payment-option.AddiPaymentGroup h3')
 
   // Update payment group item text (the clickable tab)
@@ -35,9 +33,7 @@ const updatePaymentLabels = () => {
   const mpPaymentGroupText = document.querySelector(
     '#payment-group-MercadoPagoProPaymentGroup .payment-group-item-text'
   )
-  const mpPaymentGroupH3 = document.querySelector(
-    '.box-payment-mercadopago-banner .payment-mercadopago-title h3'
-  )
+  const mpPaymentGroupH3 = document.querySelector('.box-payment-mercadopago-banner .payment-mercadopago-title h3')
 
   // Update payment group item text (the clickable tab)
   if (mpPaymentGroupText && mpPaymentGroupText.textContent.trim() === 'Mercado Pago') {
@@ -48,10 +44,7 @@ const updatePaymentLabels = () => {
   if (mpPaymentGroupH3) {
     const originalText = mpPaymentGroupH3.textContent.trim()
     // Only update if it's the default text
-    if (
-      originalText === 'Descubre la practicidad de Mercado Pago' ||
-      originalText === 'Mercado Pago'
-    ) {
+    if (originalText === 'Descubre la practicidad de Mercado Pago' || originalText === 'Mercado Pago') {
       mpPaymentGroupH3.textContent = 'Tarjeta Crédito/débito, PSE con Mercado Pago'
     }
   }
@@ -92,7 +85,7 @@ const setupPaymentLabelObserver = () => {
   paymentLabelObserver.observe(paymentDataContainer, {
     childList: true,
     subtree: true,
-    characterData: true
+    characterData: true,
   })
 }
 
@@ -107,5 +100,5 @@ const cleanupPaymentLabelObserver = () => {
 export {
   setupPaymentLabelObserver as setupAddiLabelObserver,
   cleanupPaymentLabelObserver as cleanupAddiLabelObserver,
-  updatePaymentLabels as updateAddiLabels
+  updatePaymentLabels as updateAddiLabels,
 }
