@@ -44,7 +44,7 @@ const updateDeliveryOptions = () => {
   const siguienteDiaLabel = document.querySelector('label[id="Envio Siguiente día"]')
   if (siguienteDiaLabel) {
     const packageSpan = siguienteDiaLabel.querySelector('.shp-option-text-package span')
-    if (packageSpan && packageSpan.textContent.trim() === 'Mismo día') {
+    if (packageSpan && packageSpan.textContent.trim() === 'En 1 día') {
       packageSpan.textContent = '1 día hábil'
     }
   }
@@ -53,7 +53,7 @@ const updateDeliveryOptions = () => {
   const expressLabel = document.querySelector('label[id="Envio Express"]')
   if (expressLabel) {
     const packageSpan = expressLabel.querySelector('.shp-option-text-package span')
-    if (packageSpan && packageSpan.textContent.trim() === 'En 1 día hábil') {
+    if (packageSpan && packageSpan.textContent.trim() === 'Mismo día') {
       packageSpan.textContent = 'Hasta en 3 horas'
     }
   }
@@ -62,7 +62,7 @@ const updateDeliveryOptions = () => {
   const tradicionalLabel = document.querySelector('label[id="Entrega Tradicional"]')
   if (tradicionalLabel) {
     const packageSpan = tradicionalLabel.querySelector('.shp-option-text-package span')
-    if (packageSpan && packageSpan.textContent.trim() === 'En 1 día') {
+    if (packageSpan && packageSpan.textContent.trim() === 'En hasta 3 días') {
       packageSpan.textContent = 'BOG: 1-3 días hábiles, resto país 3-8 días hábiles'
     }
   }
