@@ -171,11 +171,11 @@ const ensureUI = (shipStreet) => {
                 ${VIA_OPTIONS.map((o) => `<option value="${o}">${o}</option>`).join('')}
             </select>
         </div>
-        <input id="hs-n1-v2" class="hs-input-v2" type="text" inputmode="numeric" placeholder="132" aria-label="Número principal">
+        <input id="hs-n1-v2" class="hs-input-v2" type="text" inputmode="text" placeholder="132" aria-label="Número principal">
         <span class="hs-sep-v2">#</span>
-        <input id="hs-nhash-v2" class="hs-input-v2" type="text" inputmode="numeric" placeholder="20" aria-label="Número #">
+        <input id="hs-nhash-v2" class="hs-input-v2" type="text" inputmode="text" placeholder="20" aria-label="Número #">
         <span class="hs-sep-v2">-</span>
-        <input id="hs-ndash-v2" class="hs-input-v2" type="text" inputmode="numeric" placeholder="25" aria-label="Número -">
+        <input id="hs-ndash-v2" class="hs-input-v2" type="text" inputmode="text" placeholder="25" aria-label="Número -">
     </div>
     <div class="hs-localidad-container-v2" id="hs-localidad-container-v2" style="display: none;">
         <label class="hs-label-v2">Localidad*</label>
