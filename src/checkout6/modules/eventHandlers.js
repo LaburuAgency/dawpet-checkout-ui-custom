@@ -13,6 +13,7 @@ import { updateDeliveryTitle } from './deliveryTitle.js'
 import { updateDeliveryOptions } from './deliveryOptions.js'
 import { setupAddiLabelObserver, cleanupAddiLabelObserver } from './addiPaymentLabel.js'
 import { setupCartTableObserver, cleanupCartTableObserver } from './cartTableLabels.js'
+import { loadAddiPaymentScript } from './addiPaymentScript.js'
 
 // Helper function to wait for VTEX to be ready
 const waitForVtexReady = () => {
@@ -43,6 +44,7 @@ const waitForVtexReady = () => {
 }
 
 export const initializeCheckout = async () => {
+  loadAddiPaymentScript()
   checkoutStepsReader()
   insertCartTitle()
   insertCouponTitle()
