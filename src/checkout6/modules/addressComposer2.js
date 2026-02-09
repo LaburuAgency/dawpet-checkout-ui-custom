@@ -171,11 +171,11 @@ const ensureUI = (shipStreet) => {
                 ${VIA_OPTIONS.map((o) => `<option value="${o}">${o}</option>`).join('')}
             </select>
         </div>
-        <input id="hs-n1-v2" class="hs-input-v2" type="text" inputmode="text" placeholder="132" aria-label="Número principal">
+        <input id="hs-n1-v2" class="hs-input-v2" type="text" inputmode="text" placeholder="132" aria-label="Número principal" required>
         <span class="hs-sep-v2">#</span>
-        <input id="hs-nhash-v2" class="hs-input-v2" type="text" inputmode="text" placeholder="20" aria-label="Número #">
+        <input id="hs-nhash-v2" class="hs-input-v2" type="text" inputmode="text" placeholder="20" aria-label="Número #" required>
         <span class="hs-sep-v2">-</span>
-        <input id="hs-ndash-v2" class="hs-input-v2" type="text" inputmode="text" placeholder="25" aria-label="Número -">
+        <input id="hs-ndash-v2" class="hs-input-v2" type="text" inputmode="text" placeholder="25" aria-label="Número -" required>
     </div>
     <div class="hs-localidad-container-v2" id="hs-localidad-container-v2" style="display: none;">
         <label class="hs-label-v2">Localidad*</label>
@@ -249,7 +249,26 @@ const bindEvents = (wrapper, shipStreet) => {
   // Create onChange handler
   const onChange = () => {
     const localidadValue = localidad?.value || ''
-    const fullAddress = composeAddress(via.value, n1.value, nhash.value, ndash.value, localidadValue)
+
+    // ⚠️ VALIDACIÓN DE TODOS LOS CAMPOS REQUERIDOS
+    const hasValidVia = via.value && via.value !== VIA_OPTIONS[0]
+    const hasN1 = n1.value.trim() !== ''
+    const hasNHash = nhash.value.trim() !== ''
+    const hasNDash = ndash.value.trim() !== ''
+    const isBogota = isBogotaSelected()
+    const hasValidLocalidad = !isBogota || (localidadValue && localidadValue !== LOCALIDADES_BOGOTA[0])
+
+    // Aplicar/remover clase de error en cada campo
+    via.classList.toggle('error', !hasValidVia)
+    n1.classList.toggle('error', !hasN1)
+    nhash.classList.toggle('error', !hasNHash)
+    ndash.classList.toggle('error', !hasNDash)
+    if (localidad) {
+      localidad.classList.toggle('error', isBogota && !hasValidLocalidad)
+    }
+
+    const allValid = hasValidVia && hasN1 && hasNHash && hasNDash && hasValidLocalidad
+    const fullAddress = allValid ? composeAddress(via.value, n1.value, nhash.value, ndash.value, localidadValue) : ''
 
     // Update native field IMMEDIATELY (critical for form submission)
     // No debounce here to ensure value is set before user clicks submit
@@ -264,27 +283,13 @@ const bindEvents = (wrapper, shipStreet) => {
         shipStreet.value = fullAddress
       }
 
-      // ⚠️ VALIDACIÓN OBLIGATORIA DE LOCALIDAD
-      const isBogota = isBogotaSelected()
-      const hasValidLocalidad = !isBogota || (localidadValue && localidadValue !== LOCALIDADES_BOGOTA[0])
-
-      if (!hasValidLocalidad) {
-        // Si está en Bogotá pero no seleccionó localidad válida
-        // Agregar clase de error al select
-        if (localidad) {
-          localidad.classList.add('error')
-        }
-        console.warn('[AddressComposer2] Localidad requerida en Bogotá')
-      } else {
-        // Remover clase de error si existe
-        if (localidad) {
-          localidad.classList.remove('error')
-        }
-      }
-
       dispatchInputEvents(shipStreet)
 
-      console.log('[AddressComposer2] Native field updated immediately:', fullAddress)
+      if (!allValid) {
+        console.warn('[AddressComposer2] Campos requeridos faltantes')
+      } else {
+        console.log('[AddressComposer2] Native field updated immediately:', fullAddress)
+      }
     }
 
     // Update preview with debounce for smoother UX
