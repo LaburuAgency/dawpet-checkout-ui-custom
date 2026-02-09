@@ -56,6 +56,16 @@
     &:hover {
       background-color: #e8e8e8;
     }
+
+    // Estado de error
+    &.error {
+      border: 2px solid #ef4444 !important;
+      background-color: #fef2f2;
+
+      &:focus {
+        outline-color: #ef4444;
+      }
+    }
   }
 
   // Localidad container (solo visible en Bogotá)
@@ -134,6 +144,16 @@
     &::placeholder {
       color: #94a3b8;
       font-style: italic;
+    }
+
+    // Estado de error
+    &.error {
+      border: 2px solid #ef4444 !important;
+      background-color: #fef2f2;
+
+      &:focus {
+        outline-color: #ef4444;
+      }
     }
   }
 
