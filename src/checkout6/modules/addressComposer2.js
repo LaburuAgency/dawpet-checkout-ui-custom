@@ -145,10 +145,7 @@ const parseAddress = (addressStr) => {
 const tryHydrateFromOrderForm = (shipStreet) => {
   try {
     // Try native input first, then orderForm
-    const addressStr =
-      shipStreet?.value ||
-      window.vtexjs?.checkout?.orderForm?.shippingData?.address?.street ||
-      ''
+    const addressStr = shipStreet?.value || window.vtexjs?.checkout?.orderForm?.shippingData?.address?.street || ''
 
     if (!addressStr) {
       console.log('[AddressComposer2] No address to hydrate from')
