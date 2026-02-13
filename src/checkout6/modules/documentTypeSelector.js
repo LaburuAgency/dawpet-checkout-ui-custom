@@ -11,6 +11,7 @@ const DOCUMENT_TYPES = [
   { value: 'cpf', label: 'Cédula de ciudadanía' },
   { value: 'foreign-id', label: 'Cédula de extranjería' },
   { value: 'nit', label: 'NIT' },
+  { value: 'passport', label: 'Pasaporte' },
 ]
 
 // Persist selected document type in the orderForm without changing clientProfileData.isCorporate
@@ -177,6 +178,10 @@ const updateDocumentField = (documentType, isUserChange = false) => {
     case 'nit':
       label = 'NIT'
       placeholder = 'Ej: 900123456-1'
+      break
+    case 'passport':
+      label = 'Pasaporte'
+      placeholder = 'Ej: AB1234567'
       break
   }
 

@@ -17,7 +17,6 @@ export const addPlaceholder = () => {
     '#client-email': 'correo@ejemplo.com',
     '#client-first-name': 'Nombre',
     '#client-last-name': 'Apellido',
-    '#client-document': '12345678910',
   }
 
   Object.entries(placeholders).forEach(([selector, placeholder]) => {
@@ -26,6 +25,21 @@ export const addPlaceholder = () => {
       field.setAttribute('placeholder', placeholder)
     }
   })
+
+  // Set document placeholder based on the document type selector's current value
+  // This ensures the placeholder is re-applied after VTEX re-renders the form
+  const documentField = $.select('#client-document')
+  if (documentField) {
+    const docTypeSelector = document.querySelector('#document-type-selector')
+    const docType = docTypeSelector ? docTypeSelector.value : 'cpf'
+    const docPlaceholders = {
+      cpf: 'Ej: 1020782291',
+      'foreign-id': 'Ej: 1234567',
+      nit: 'Ej: 900123456-1',
+      passport: 'Ej: AB1234567',
+    }
+    documentField.setAttribute('placeholder', docPlaceholders[docType] || 'Ej: 1020782291')
+  }
 }
 
 export const addTermsAndConditions = () => {
