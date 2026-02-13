@@ -1,7 +1,7 @@
 /**
  * Address Composer V2 Module
  * Enhanced UI version with visible preview and debounced input handling
- * UI-only mode - no persistence or rehydration
+ * Supports hydration from saved addresses in orderForm
  */
 
 // Constants
@@ -80,6 +80,110 @@ const composeAddress = (via, n1, nHash, nDash, localidad = '') => {
   }
 
   return baseAddress
+}
+
+/**
+ * Parses a composed address string back into its components.
+ * Inverse of composeAddress().
+ * @param {string} addressStr - e.g. "Avenida Carrera 32 # 32 - 32 | Chapinero"
+ * @returns {{ via: string, n1: string, nHash: string, nDash: string, localidad: string } | null}
+ */
+const parseAddress = (addressStr) => {
+  if (!addressStr || typeof addressStr !== 'string') return null
+
+  const str = addressStr.trim()
+  if (!str) return null
+
+  // 1. Separate localidad (after " | ")
+  let baseAddress = str
+  let localidad = ''
+  const pipeIdx = str.indexOf(' | ')
+  if (pipeIdx !== -1) {
+    baseAddress = str.substring(0, pipeIdx).trim()
+    localidad = str.substring(pipeIdx + 3).trim()
+  }
+
+  // 2. Separate hash and dash numbers: split by " # " then " - "
+  let leftPart = baseAddress
+  let nHash = ''
+  let nDash = ''
+  const hashIdx = baseAddress.indexOf(' # ')
+  if (hashIdx !== -1) {
+    leftPart = baseAddress.substring(0, hashIdx).trim()
+    const rightPart = baseAddress.substring(hashIdx + 3).trim()
+    const dashIdx = rightPart.indexOf(' - ')
+    if (dashIdx !== -1) {
+      nHash = rightPart.substring(0, dashIdx).trim()
+      nDash = rightPart.substring(dashIdx + 3).trim()
+    } else {
+      nHash = rightPart
+    }
+  }
+
+  // 3. Extract via type: match longest option first
+  const sortedVias = VIA_OPTIONS.slice(1).sort((a, b) => b.length - a.length)
+  let via = ''
+  let n1 = ''
+  for (const option of sortedVias) {
+    if (leftPart.startsWith(option)) {
+      via = option
+      n1 = leftPart.substring(option.length).trim()
+      break
+    }
+  }
+
+  if (!via) return null
+
+  return { via, n1, nHash, nDash, localidad }
+}
+
+/**
+ * Tries to hydrate address composer fields from the existing order form address.
+ * Called when the composer is created to pre-fill fields for users with saved addresses.
+ * @param {HTMLElement} shipStreet - Native street input element
+ */
+const tryHydrateFromOrderForm = (shipStreet) => {
+  try {
+    // Try native input first, then orderForm
+    const addressStr =
+      shipStreet?.value ||
+      window.vtexjs?.checkout?.orderForm?.shippingData?.address?.street ||
+      ''
+
+    if (!addressStr) {
+      console.log('[AddressComposer2] No address to hydrate from')
+      return
+    }
+
+    const parsed = parseAddress(addressStr)
+    if (!parsed) {
+      console.log('[AddressComposer2] Could not parse address for hydration:', addressStr)
+      return
+    }
+
+    // Set field values
+    const viaEl = document.querySelector('#hs-via-v2')
+    const n1El = document.querySelector('#hs-n1-v2')
+    const nHashEl = document.querySelector('#hs-nhash-v2')
+    const nDashEl = document.querySelector('#hs-ndash-v2')
+    const localidadEl = document.querySelector('#hs-localidad-v2')
+
+    if (viaEl) viaEl.value = parsed.via
+    if (n1El) n1El.value = parsed.n1
+    if (nHashEl) nHashEl.value = parsed.nHash
+    if (nDashEl) nDashEl.value = parsed.nDash
+    if (localidadEl && parsed.localidad) localidadEl.value = parsed.localidad
+
+    // Update preview immediately (no debounce for hydration)
+    const preview = document.querySelector('#hs-preview-v2')
+    if (preview) {
+      preview.textContent = addressStr
+    }
+
+    console.log('[AddressComposer2] Hydrated from order form:', parsed)
+  } catch (error) {
+    console.warn('[AddressComposer2] Error hydrating from order form:', error)
+  }
 }
 
 /**
@@ -331,8 +435,9 @@ const bindEvents = (wrapper, shipStreet) => {
  * Sets up MutationObserver to handle DOM changes
  */
 const setupAddressObserver = () => {
+  // If an observer is already active, don't recreate it
   if (addressComposerObserver) {
-    addressComposerObserver.disconnect()
+    return
   }
 
   const targetNode = document.querySelector('#shipping-data') || document.querySelector('.ship-address')
@@ -351,7 +456,7 @@ const setupAddressObserver = () => {
             console.log('[AddressComposer2] DOM changed, re-creating UI')
             const wrapper = ensureUI(shipStreet)
             if (wrapper) {
-              tryHydrateFromOrderForm()
+              tryHydrateFromOrderForm(shipStreet)
               bindEvents(wrapper, shipStreet)
             }
           }
@@ -381,10 +486,15 @@ export const addAddressComposer2 = () => {
     return
   }
 
+  // ALWAYS set up the observer when on shipping step.
+  // This ensures we detect when Knockout renders the address form
+  // (e.g. user clicks "Modificar la dirección seleccionada" from saved addresses list)
+  setupAddressObserver()
+
   // Find native street input
   const shipStreet = document.querySelector(SELECTOR_STREET)
   if (!shipStreet) {
-    console.log('[AddressComposer2] Native street input not found yet')
+    console.log('[AddressComposer2] Native street input not found yet, observer will handle it')
     return
   }
 
@@ -406,10 +516,10 @@ export const addAddressComposer2 = () => {
   // Bind events
   bindEvents(wrapper, shipStreet)
 
-  // Setup observer
-  setupAddressObserver()
+  // Hydrate fields from saved address (if any)
+  tryHydrateFromOrderForm(shipStreet)
 
-  console.log('[AddressComposer2] Initialization complete (UI only mode)')
+  console.log('[AddressComposer2] Initialization complete')
 }
 
 /**
