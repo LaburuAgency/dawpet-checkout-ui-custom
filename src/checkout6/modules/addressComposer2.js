@@ -481,11 +481,9 @@ export const addAddressComposer2 = () => {
   // If the native value setter is not available, the custom UI cannot
   // reliably write back to the VTEX field — so we leave the native input
   // visible and let VTEX handle the address field as usual.
-  const nativeValueSetter = Object.getOwnPropertyDescriptor(
-    window.HTMLInputElement.prototype,
-    'value'
-  )?.set
-  if (!nativeValueSetter) { // TEST: forzar fallback — quitar "|| true" después de probar
+  const nativeValueSetter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value')?.set
+  if (!nativeValueSetter) {
+    // TEST: forzar fallback — quitar "|| true" después de probar
     console.warn('[AddressComposer2] nativeValueSetter not available — falling back to native VTEX field')
     return
   }
