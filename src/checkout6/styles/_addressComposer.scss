@@ -30,7 +30,8 @@ select#hs-via:focus {
 div#hs-preview {
   display: none;
 }
-input#ship-street {
+// Solo ocultar el campo nativo cuando el composer V1 está montado
+#hs-address-composer ~ input#ship-street {
   pointer-events: none;
   opacity: 0.5;
 }
