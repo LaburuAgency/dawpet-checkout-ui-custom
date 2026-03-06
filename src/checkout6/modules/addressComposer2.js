@@ -374,15 +374,9 @@ const bindEvents = (wrapper, shipStreet) => {
     // Update native field IMMEDIATELY (critical for form submission)
     // No debounce here to ensure value is set before user clicks submit
     if (shipStreet) {
-      // IMPORTANT:
-      // - Updating `.value` changes the *property* but NOT the `value=""` attribute you see in Elements.
-      // - VTEX Checkout (Knockout) often listens to input/change to sync the observable.
-      // So we set using the native setter and dispatch events.
-      if (nativeValueSetter) {
-        nativeValueSetter.call(shipStreet, fullAddress)
-      } else {
-        shipStreet.value = fullAddress
-      }
+      // Use the native setter (captured at module init) to bypass Knockout's
+      // observable wrapper and write directly to the DOM value.
+      nativeValueSetter.call(shipStreet, fullAddress)
 
       dispatchInputEvents(shipStreet)
 
@@ -480,6 +474,19 @@ export const addAddressComposer2 = () => {
 
   if (!onShippingStep) {
     removeAddressComposer2()
+    return
+  }
+
+  // Check browser capability before doing anything.
+  // If the native value setter is not available, the custom UI cannot
+  // reliably write back to the VTEX field — so we leave the native input
+  // visible and let VTEX handle the address field as usual.
+  const nativeValueSetter = Object.getOwnPropertyDescriptor(
+    window.HTMLInputElement.prototype,
+    'value'
+  )?.set
+  if (!nativeValueSetter) { // TEST: forzar fallback — quitar "|| true" después de probar
+    console.warn('[AddressComposer2] nativeValueSetter not available — falling back to native VTEX field')
     return
   }
 
