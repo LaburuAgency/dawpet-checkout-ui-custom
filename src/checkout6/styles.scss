@@ -15,8 +15,8 @@
 // Use address composer
 @use './styles/addressComposer' as *;
 
-// Use address composer v2
-@use './styles/addressComposer2' as *;
+// Use address composer v2 - disabled, using native VTEX field
+// @use './styles/addressComposer2' as *;
 
 // Use pickup point styles
 @use './styles/pickup-point' as *;

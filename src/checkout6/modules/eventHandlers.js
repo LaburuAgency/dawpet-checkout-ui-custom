@@ -7,7 +7,7 @@ import { insertCartTitle } from './cartTitle.js'
 import { insertCouponTitle } from './couponTitle.js'
 import { addDocumentTypeSelector } from './documentTypeSelector.js'
 // import { addAddressComposer } from './addressComposer.js' // V1 disabled
-import { addAddressComposer2 } from './addressComposer2.js'
+// import { addAddressComposer2 } from './addressComposer2.js' // V2 disabled - using native VTEX field
 import { addPhoneTemplateSelector } from './phoneTemplate.js'
 import { updateDeliveryTitle } from './deliveryTitle.js'
 import { updateDeliveryOptions } from './deliveryOptions.js'
@@ -56,7 +56,7 @@ export const initializeCheckout = async () => {
   await waitForVtexReady()
 
   // addAddressComposer() // V1 disabled - using V2 only
-  addAddressComposer2()
+  // addAddressComposer2() // V2 disabled - using native VTEX field
   addPhoneTemplateSelector()
   updateDeliveryTitle()
   updateDeliveryOptions()
@@ -79,7 +79,7 @@ export const handleHashChange = () => {
   addRecommendedProducts()
   addDocumentTypeSelector()
   // addAddressComposer() // V1 disabled - using V2 only
-  addAddressComposer2()
+  // addAddressComposer2() // V2 disabled - using native VTEX field
   addPhoneTemplateSelector()
   updateDeliveryTitle()
   updateDeliveryOptions()
@@ -117,7 +117,7 @@ export const handleOrderFormUpdate = (evt, orderForm) => {
     addRecommendedProducts()
     addDocumentTypeSelector()
     // addAddressComposer() // V1 disabled - using V2 only
-    addAddressComposer2()
+    // addAddressComposer2() // V2 disabled - using native VTEX field
     addPhoneTemplateSelector()
     updateDeliveryTitle()
     updateDeliveryOptions()
