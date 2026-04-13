@@ -78,7 +78,7 @@ body {
   margin-right: 0;
 }
 .summary-template-holder tfoot tr td.monetary {
-  color: #0193C7;
+  color: #0193c7;
 }
 span[data-bind='visible: !isCouponTyped()'] {
   display: flex;
@@ -111,8 +111,9 @@ span[data-bind='visible: !isCouponTyped()'] {
   cursor: pointer;
   transition: background 0.3s;
 }
-.btn-success, .btn-success[disabled] {
-  background-color: #0193C7;
+.btn-success,
+.btn-success[disabled] {
+  background-color: #0193c7;
   box-shadow: none;
   border: 0;
 }
@@ -456,12 +457,12 @@ td.monetary {
   min-width: 125px;
 }
 .vtex-omnishipping-1-x-addressFormPart1 select {
-    background-color: #F3F3F3;
-    box-shadow: 0 0 0 !important;
-    border-radius: 20px !important;
+  background-color: #f3f3f3;
+  box-shadow: 0 0 0 !important;
+  border-radius: 20px !important;
 }
 select#ship-city {
-    width: 200px !important;
+  width: 200px !important;
 }
 
 // Responsive design
