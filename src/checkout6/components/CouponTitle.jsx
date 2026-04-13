@@ -1,5 +1,3 @@
-import { h } from 'preact'
-
 const CouponTitle = () => {
   return (
     <div className="coupon-title">

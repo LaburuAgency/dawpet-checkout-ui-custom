@@ -1,5 +1,3 @@
-import { h } from 'preact'
-
 const CartTitle = () => {
   return (
     <div className="cart-title">

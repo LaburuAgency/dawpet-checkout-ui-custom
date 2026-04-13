@@ -26,7 +26,7 @@ const safeJsonParse = (value) => {
   if (!value || typeof value !== 'string') return null
   try {
     return JSON.parse(value)
-  } catch (_) {
+  } catch {
     return null
   }
 }

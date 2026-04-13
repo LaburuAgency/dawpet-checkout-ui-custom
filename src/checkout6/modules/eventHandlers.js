@@ -106,7 +106,7 @@ export const handleHashChange = () => {
   }
 }
 
-export const handleOrderFormUpdate = (evt, orderForm) => {
+export const handleOrderFormUpdate = () => {
   const hash = window.location.hash
 
   setTimeout(() => {
