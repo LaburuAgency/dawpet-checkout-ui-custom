@@ -3,7 +3,7 @@ import { $ } from '../utils/dom.js'
 import RecommendedProducts from '../components/RecommendedProducts.jsx'
 
 let recommendedProductsContainer = null
-const COLLECTION_ID = 156 // configurable
+const COLLECTION_ID = 138 // configurable
 
 async function fetchCollectionProducts(collectionId, from = 0, to = 9) {
   try {

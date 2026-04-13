@@ -77,6 +77,9 @@ body {
   padding: 2rem;
   margin-right: 0;
 }
+.summary-template-holder tfoot tr td.monetary {
+  color: #0193C7;
+}
 span[data-bind='visible: !isCouponTyped()'] {
   display: flex;
   align-items: center;
@@ -103,12 +106,19 @@ span[data-bind='visible: !isCouponTyped()'] {
   color: #fff;
   border: none;
   padding: 0 1.2rem;
-  border-radius: 6px;
+  border-radius: 30px;
   font-size: 0.95rem;
   cursor: pointer;
   transition: background 0.3s;
 }
-
+.btn-success, .btn-success[disabled] {
+  background-color: #0193C7;
+  box-shadow: none;
+  border: 0;
+}
+.btn-success:hover {
+  background-color: #007099;
+}
 #cart-coupon-add.btn:hover {
   background: #001d39;
 }
@@ -432,7 +442,7 @@ p.input.ship-state.required.text {
 }
 span.accordion-toggle.collapsed.accordion-toggle-active,
 span.accordion-toggle.collapsed.accordion-toggle-active span:before {
-  color: #044ea3 !important;
+  color: #000 !important;
 }
 .App.iframe-credit-card-payment-group input,
 .App.iframe-credit-card-payment-group select {
@@ -444,6 +454,14 @@ span.accordion-toggle.collapsed.accordion-toggle-active span:before {
 }
 td.monetary {
   min-width: 125px;
+}
+.vtex-omnishipping-1-x-addressFormPart1 select {
+    background-color: #F3F3F3;
+    box-shadow: 0 0 0 !important;
+    border-radius: 20px !important;
+}
+select#ship-city {
+    width: 200px !important;
 }
 
 // Responsive design
