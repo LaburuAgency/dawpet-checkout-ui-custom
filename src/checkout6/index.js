@@ -1,5 +1,3 @@
-import { h, render } from 'preact'
-import CheckoutHeader from './components/CheckoutHeader.jsx'
 import { initializeCheckout, setupEventListeners } from './modules/eventHandlers.js'
 import './styles.scss'
 

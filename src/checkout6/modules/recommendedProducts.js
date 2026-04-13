@@ -1,5 +1,7 @@
+// eslint-disable-next-line no-unused-vars
 import { h, render } from 'preact'
 import { $ } from '../utils/dom.js'
+// eslint-disable-next-line no-unused-vars
 import RecommendedProducts from '../components/RecommendedProducts.jsx'
 
 let recommendedProductsContainer = null

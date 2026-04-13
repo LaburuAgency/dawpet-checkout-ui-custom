@@ -1,4 +1,3 @@
-import { h } from 'preact'
 import { useRef } from 'preact/hooks'
 
 const RecommendedProducts = ({ products = [], onAddToCart }) => {
@@ -8,7 +7,7 @@ const RecommendedProducts = ({ products = [], onAddToCart }) => {
     if (price == null) return ''
     try {
       return price.toLocaleString('es-CO', { style: 'currency', currency: 'COP', maximumFractionDigits: 0 })
-    } catch (_) {
+    } catch {
       return `$${Number(price).toLocaleString('es-CO')}`
     }
   }

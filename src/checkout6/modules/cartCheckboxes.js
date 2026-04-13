@@ -61,7 +61,7 @@ export const addCartCheckboxes = () => {
 
   const initializeCheckboxes = () => {
     // Use MutationObserver instead of interval for better performance
-    const observer = new MutationObserver((mutations) => {
+    const observer = new MutationObserver(() => {
       const cartLink = $.select('#cart-to-orderform')
 
       if (cartLink && !checkboxesAdded) {
