@@ -27,7 +27,8 @@ function mapSkuVariant(item, index) {
   const installments = (offer.Installments || []).find((i) => i.NumberOfInstallments > 1)
   const currentPrice = offer.Price || 0
   const listPrice = offer.ListPrice || currentPrice
-  const discountPercentage = listPrice > currentPrice && listPrice > 0 ? ((listPrice - currentPrice) / listPrice) * 100 : 0
+  const discountPercentage =
+    listPrice > currentPrice && listPrice > 0 ? ((listPrice - currentPrice) / listPrice) * 100 : 0
   const availableQuantity = Number(offer.AvailableQuantity || 0)
 
   return {
