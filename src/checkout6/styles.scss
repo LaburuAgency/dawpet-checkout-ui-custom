@@ -465,6 +465,11 @@ select#ship-city {
   width: 200px !important;
 }
 
+.shp-summary-package-time,
+.vtex-omnishipping-1-x-deliveryGroup {
+  display: none !important;
+}
+
 // Responsive design
 @media (max-width: 768px) {
   .empty-cart-content {
